@@ -1,13 +1,12 @@
-
 <!-- Top navbar -->
 <div class="top-navbar">
-     <p></p>
-     <div class="icons" id="loginDiv">
-        <a href="login.html"><img src="./images/register.png" alt="" width="18px">Login</a>
-         <a href="{{ route('register') }}"><img src="./images/register.png" alt="" width="18px">Register</a>
-     </div>
- </div>
- <!-- end Top navbar -->
+    <p></p>
+    <div class="icons" id="loginDiv">
+        <a href="{{ route('login') }}"><img src="./images/register.png" alt="" width="18px">Login</a>
+        <a href="{{ route('register') }}"><img src="./images/register.png" alt="" width="18px">Register</a>
+    </div>
+</div>
+<!-- end Top navbar -->
 
 
 <!-- navbar -->
@@ -33,12 +32,6 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgb(67 0 86);">
                         @foreach($categorList as $category)
                         <li><a class="dropdown-item" href="{{ route('home-category-page', $category->id) }}">{{ $category->name }}</a></li>
-                        <!-- <li><a class="dropdown-item" href="category.html">Smart Phone</a></li>
-                        <li><a class="dropdown-item" href="category.html">Houseware</a></li>
-                        <li><a class="dropdown-item" href="category.html">Smart Watch</a></li>
-                        <li><a class="dropdown-item" href="category.html">Headphone</a></li>
-                        <li><a class="dropdown-item" href="category.html">Laptop</a></li>
-                        <li><a class="dropdown-item" href="category.html">PC Moniter</a></li> -->
                         @endforeach
                     </ul>
                 </li>
@@ -54,15 +47,22 @@
                 <button class="btn btn-outline-success" type="submit">Search</button>
 
                 <div class="cart">
-                    <a href="{{ route('page-card') }}"><button type="button" class="btn  position-relative text-wrap">
+                    <a href="{{ route('page-card') }}">
+                        <button type="button" class="btn position-relative text-wrap">
                             <i data-lucide="shopping-cart"></i>
-                                <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle" style="width: 50%; height: 100%">
-                                    <span class="visually-hidden">New alerts</span>
-                                    {{ count((array) session('cart')) }}
-                                </span>
+                            <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle" style="width: 50%; height: 100%">
+                                <span class="visually-hidden">New alerts</span>
+                                @php
+                                $cartItems = session('cart');
+                                $cartCount = is_array($cartItems) ? array_sum(array_column($cartItems, 'quantity')) : 0;
+                                @endphp
+                                {{ $cartCount }}
+                            </span>
                         </button>
                     </a>
                 </div>
+
+
             </form>
         </div>
     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -13,8 +14,8 @@ class UserController extends Controller
     public function index()
     {
         //
-        return view('admin.users.index');
-        // return ('thang');
+        $users = User::all();
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -23,6 +24,7 @@ class UserController extends Controller
     public function create()
     {
         //
+        return view('admin.users.create');
     }
 
     /**
@@ -31,6 +33,15 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        $user = User::create($request->only([
+            'name', 'email', 'password', 'role'
+        ]));
+        $message = "Create success!";
+        if(empty($user))
+        $message = "Create fail!";
+        
+        return redirect()->route("admin.users.index")->with('message', $message);
+
     }
 
     /**
@@ -47,6 +58,8 @@ class UserController extends Controller
     public function edit(string $id)
     {
         //
+        $users = User::findOrFail($id);
+        return view('admin.users.edit', compact('users'));
     }
 
     /**
@@ -54,7 +67,16 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //\
+        $user = User::findOrFail($id);
+        $user -> update($request->only([
+            'name', 'email', 'password', 'role'
+        ]));
+        $message = "Updated successfully!";
+        if ($user === null) {
+            $message = "Update failed!";
+        }
+        return redirect()->route("admin.users.index")->with('message', $message);
     }
 
     /**
@@ -63,5 +85,13 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+        $user = User::destroy($id);
+        // dd($user);
+        $message = "Delete successfully!";
+        if ($user === null) {
+            $message = "Update failed!";
+        }
+        return redirect()->route("admin.users.index")->with('message', $message);
+
     }
 }

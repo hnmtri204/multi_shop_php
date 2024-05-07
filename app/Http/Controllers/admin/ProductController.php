@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -24,38 +25,61 @@ class ProductController extends Controller
     public function create()
     {
         //
-        return view('admin.products.create');
+        $categories = Category::all();
+        return view('admin.products.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
+    // public function store(Request $request)
+    // {
+    //     //
+    //     $request['img']= '/img/'.$request['img'];
+    //     // $request['img']= '/images/'.$request['img'];
+
+    //     $product = Product::create( $request->only([
+    //         'img', 'name', 'description', 'price', 'quantity', 'category_id'
+    //     ]));
+    //     $message = "Create succsess!";
+    //     if($product===null){
+    //     $message = "Create fail!";
+    //     }
+    //     return redirect()->route('admin.products.index')->with('message', $message);
+    // }
+
     public function store(Request $request)
     {
-        //
-        $request['img']= '/images/'.$request['img'];
-
-        $product = Product::create( $request->only([
-            'img', 'name', 'description', 'price', 'quantity', 'category_id'
-        ]));
-        $message = "Create succsess!";
-        if($product===null){
-        $message = "Create fail!";
+        dd($request->file('img'));
+        if ($request['img']) {
+        // if ($request->hasFile('img')) {
+            $imageName = $request->file('img')->hashName();
+            $request->file('img')->storeAs('img', $imageName, 'public');
+            $imageUrl = '/storage/img/' . $imageName;
+            
+            $product = Product::create([
+                'img' => $imageUrl,
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+                'price' => $request->input('price'),
+                'quantity' => $request->input('quantity'),
+                'category_id' => $request->input('category_id'),
+            ]);
+            $message = "Create succsess!";
+            if ($product === null) {
+                $message = "Create fail!";
+            }
+            return redirect()->route('admin.products.index')->with('message', $message);
+        } else {
+            echo "nhu cc";
         }
-        return redirect()->route('admin.products.index')->with('message', $message);
+        
+       
     }
+    
+  
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
+
     public function edit(string $id)
     {
         //
@@ -71,17 +95,17 @@ class ProductController extends Controller
         //
         $product = Product::findOrFail($id);
 
-        $request['img']= '/images/'.$request['img'];
+        $request['img'] = '/img/' . $request['img'];
+        // $request['img']= '/images/'.$request['img'];
 
         $product->update($request->only([
             'img', 'name', 'description', 'price', 'quantity', 'category_id'
         ]));
         $message = "Update succsess!";
-        if($product===null){
-        $message = "Update fail!";
+        if ($product === null) {
+            $message = "Update fail!";
         }
         return redirect()->route('admin.products.index')->with('message', $message);
-
     }
 
     /**
@@ -92,8 +116,8 @@ class ProductController extends Controller
         //
         $product = Product::destroy($id);
         $message = "Delete succsess!";
-        if($product===null){
-        $message = "Delete fail!";
+        if ($product === null) {
+            $message = "Delete fail!";
         }
         return redirect()->route('admin.products.index')->with('message', $message);
     }

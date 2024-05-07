@@ -12,57 +12,48 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
-        $products = Product::all();
+        $products = Product::paginate(6);
         return view('products.index', compact('products'));
-
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function filterPrice(Request $request)
     {
-        //
-    }
+        $price = $request->input('price');
+        $name = $request->input('name');
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $query = Product::query();
+        switch ($price) {
+            case 'all':
+                break;
+            case '1':
+                $query->where('price', '<=', 100);
+                break;
+            case '2':
+                $query->whereBetween('price', [100, 200]);
+                break;
+            case '3':
+                $query->whereBetween('price', [200, 300]);
+                break;
+            case '4':
+                $query->whereBetween('price', [300, 400]);
+                break;
+            case '5':
+                $query->where('price', '>=', 400);
+                break;
+        }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        switch ($name) {
+            case 'AtoZ':
+                $query->orderBy('name');
+                break;
+            case 'ZtoA':
+                $query->orderByDesc('name');
+                break;
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        $response = $query->paginate(6);
+        $products = Product::paginate(6);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return view('products.index', compact('response', 'price', 'name', 'products'));
     }
 }

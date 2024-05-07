@@ -4,19 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-
     // add to card
     public function addToCard(Request $request, string $id)
     {
         $quantity = $request->get('quantity', 1);
 
         $product = Product::findOrFail($id);
+        if (!$product) {
+            return "lỗi!";
+        }
 
         // Lấy giỏ hàng hiện tại từ session
         $cart = session()->get('cart', []);
@@ -24,7 +24,7 @@ class CardController extends Controller
         if (isset($cart[$id])) {
             $cart[$id]['quantity'] += $quantity;
         } else {
-            $cart[$product->id] = [
+            $cart[$id] = [
                 'id' => $product->id,
                 'img' => $product->img,
                 'name' => $product->name,
@@ -36,8 +36,6 @@ class CardController extends Controller
         // Lưu giỏ hàng cập nhật vào session
         session()->put('cart', $cart);
         // dd($cart);
-
-
         // Thông báo thành công
         return redirect()->back()->with('success', 'Đã thêm sản phẩm vào giỏ hàng!');
     }
@@ -47,7 +45,8 @@ class CardController extends Controller
         $cart = session()->get('cart', []);
 
         if (empty($cart)) {
-            echo "Giỏ hàng của bạn hiện đang rỗng.";
+            // echo "Giỏ hàng của bạn hiện đang rỗng.";
+            return view('home.card');
         } else {
             // dd($cart);
             return view('home.card', compact('cart'));
@@ -55,42 +54,42 @@ class CardController extends Controller
     }
 
 
-
-
-
     public function updateCard(Request $request, string $id)
     {
         $newQuantity = $request->input('quantity');
-
-        // Lấy giỏ hàng từ session
-        $cart = session()->get('cart', []);
-
-        // Kiểm tra sản phẩm có tồn tại trong giỏ hàng không
-        if (isset($cart[$id])) {
-            // Cập nhật số lượng mới của sản phẩm trong giỏ hàng
-            $cart[$id]['quantity'] = $newQuantity;
-
-            // Lưu giỏ hàng cập nhật vào session
-            session()->put('cart', $cart);
-
-            // Thông báo thành công
+        // dd($newQuantity);
+        $cart = session()->get('cart', []); // Lấy giỏ hàng từ session
+        if (isset($cart[$id])) { // Kiểm tra sản phẩm có tồn tại trong giỏ hàng không
+            $cart[$id]['quantity'] = $newQuantity; // Cập nhật số lượng mới của sản phẩm trong giỏ hàng
+            session()->put('cart', $cart); // Lưu giỏ hàng cập nhật vào session
             return redirect()->back()->with('success', 'Đã cập nhật số lượng sản phẩm trong giỏ hàng!');
         }
-
-        // Nếu sản phẩm không tồn tại trong giỏ hàng, thông báo lỗi
         return redirect()->back()->with('error', 'Sản phẩm không có trong giỏ hàng!');
     }
 
+
+    // delete card
     public function deleteCard(string $id)
     {
         $cart = session()->get('cart', []);
-
         if (isset($cart[$id])) {
             unset($cart[$id]);
         }
-
         session()->put('cart', $cart);
-
         return redirect()->back()->with('success', 'Đã xóa sản phẩm khỏi giỏ hàng!');
+    }
+
+    //show card checkout
+    public function showCardCheckout()
+    {
+        // dd('ok');
+        $cart = session()->get('cart', []);
+
+        if (empty($cart)) {
+            return view('home.checkout');
+        } else {
+            // dd($cart);
+            return view('home.checkout', compact('cart'));
+        }
     }
 }

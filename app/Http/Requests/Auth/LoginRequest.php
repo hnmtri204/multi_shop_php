@@ -82,4 +82,11 @@ class LoginRequest extends FormRequest
     {
         return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
     }
+    
+    
+    // add  
+    // public function getAuthenticatedUser()
+    // {
+    //     return Auth::user();
+    // }
 }

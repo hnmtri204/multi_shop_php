@@ -8,7 +8,7 @@
     @endif
     <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 col-12">
         <div class="card">
-            <h5 class="card-header">Basic Table</h5>
+            <h5 class="card-header">Users Table</h5>
             <a href="{{ route('admin.users.create')}}" class="d-flex justify-content-end ">
                 <button type="button" class="btn btn-primary">Create New</button>
             </a>

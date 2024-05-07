@@ -9,16 +9,16 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="section-block" id="basicform">
-                            <h3 class="section-title">Basic Form Elements</h3>
+                            <h3 class="section-title">Products</h3>
                         </div>
                         <div class="card">
-                            <h5 class="card-header">Basic Form</h5>
+                            <h5 class="card-header">Products Form</h5>
                             <div class="card-body">
                                 <form action=" {{ route('admin.products.update', $product->id) }} " method="post">
                                     {{ csrf_field('') }}
                                     {{ method_field('PUT') }}
                                     <div class="form-group">
-                                        <label for="inputText3" class="col-form-label"><img src="{{ $product->img }}" alt="" style="witch: 150px; height: 150px;"></label>
+                                        <label for="inputText3" class="col-form-label"><img src="{{ $product->img }}" alt="" style="width: 150px; height: 150px;"></label>
                                         <input name="img" value=""  id="inputText3" type="file" placeholder="Img" class="form-control">
                                     </div>
                                     <div class="form-group">

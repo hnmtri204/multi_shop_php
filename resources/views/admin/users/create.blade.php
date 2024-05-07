@@ -9,10 +9,10 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="section-block" id="basicform">
-                            <h3 class="section-title">Basic Form Elements</h3>
+                            <h3 class="section-title">Users</h3>
                         </div>
                         <div class="card">
-                            <h5 class="card-header">Basic Form</h5>
+                            <h5 class="card-header">Users Form</h5>
                             <div class="card-body">
                                 <form action=" {{ route('admin.users.store') }} " method="post">
                                     {{ csrf_field('') }}

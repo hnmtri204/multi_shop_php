@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\HomeAdminController;
+use App\Http\Controllers\CheckoutController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,14 +32,21 @@ Route::prefix('home')->group(function () {
     Route::get('/page-show/{id}', [HomeController::class, 'show'])->name('home-show-page');
     Route::get('/page-categories/{id}', [CategoryController::class, 'show'])->name('home-category-page');
     Route::resource('/products', ProductController::class,['names' => 'product-index']);
+    Route::get('/contact-page', [HomeController::class, 'contact'])->name('contact-page');
+    Route::get('/filter', [ProductController::class, 'filterPrice'])->name('filter');
+    Route::get('/filter-search', [HomeController::class, 'filter'])->name('filter-search');
 });
 
-
+ 
 // add to card
 Route::post('/add-to-card/{id}', [CardController::class, 'addToCard'])->name('add-to-card');
 Route::get('/page-card',[CardController::class, 'showCard'])->name('page-card');
 Route::delete('/delete-card/{id}',[CardController::class, 'deleteCard'])->name('delete-card');
 Route::put('/update-card/{id}',[CardController::class, 'updateCard'])->name('update-card');
+
+//checkout
+Route::get('/checkout-page', [CardController::class, 'showCardCheckout'])->name('checkout-page');
+Route::post('/checkout', [CheckoutController::class, 'handleCheckout'])->name('checkout');
 
 
 // admin
@@ -51,7 +59,6 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('orders', App\Http\Controllers\admin\OrderController::class, ['names' => 'admin.orders']);
     Route::resource('order-items', App\Http\Controllers\admin\OrderItemController::class, ['names' => 'admin.order-items']);
 });
-
 
 
 

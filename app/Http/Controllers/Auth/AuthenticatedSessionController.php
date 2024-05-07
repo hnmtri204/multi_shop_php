@@ -34,6 +34,9 @@ class AuthenticatedSessionController extends Controller
 
             return redirect('admin');
         }
+        else{
+            return redirect('/home');
+        }
 
         //
 
@@ -52,6 +55,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/home');
     }
 }

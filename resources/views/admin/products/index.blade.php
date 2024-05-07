@@ -8,7 +8,7 @@
     @endif
     <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 col-12">
         <div class="card">
-            <h5 class="card-header">Basic Table</h5>
+            <h5 class="card-header">Products Table</h5>
             <a href="{{ route('admin.products.create')}}" class="d-flex justify-content-end ">
                 <button type="button" class="btn btn-primary">Create New</button>
             </a>
@@ -31,7 +31,7 @@
                         @foreach($products as $product)
                         <tr>
                             <th scope="row"> {{ $loop->index + 1 }}</th>
-                            <td><img src="{{ $product->img }}" alt="" style="witch: 150px; height: 150px;"></td>
+                            <td><img src="{{ $product->img }}" alt="" style="width: 150px; height: 150px;"></td>
                             <td class="text-primary">{{ $product->name }}</td>
                             <td>{{ $product->description }}</td>
                             <td>{{ $product->price }}</td>

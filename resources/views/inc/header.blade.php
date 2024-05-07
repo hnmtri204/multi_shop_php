@@ -1,70 +1,152 @@
-<!-- Top navbar -->
-<div class="top-navbar">
-    <p></p>
-    <div class="icons" id="loginDiv">
-        <a href="{{ route('login') }}"><img src="./images/register.png" alt="" width="18px">Login</a>
-        <a href="{{ route('register') }}"><img src="./images/register.png" alt="" width="18px">Register</a>
+<!-- Topbar Start -->
+<div class="container-fluid">
+    <div class="row bg-secondary py-1 px-xl-5">
+        <div class="col-lg-6 d-none d-lg-block">
+            <div class="d-inline-flex align-items-center h-100">
+                <a class="text-body mr-3" href="">About</a>
+                <a class="text-body mr-3" href="">Contact</a>
+                <a class="text-body mr-3" href="">Help</a>
+                <a class="text-body mr-3" href="">FAQs</a>
+            </div>
+        </div>
+        <div class="col-lg-6 text-center text-lg-right">
+            <div class="d-inline-flex align-items-center">
+                @if(isset($user))
+                <div class="btn-group mx-2">
+                    <p class="pt-1">Welcome, {{ $user->name }}! | Your email: {{ $user->email }}</p>
+                </div>
+                <div class="btn-group mx-2">
+                <button type="button" class="btn btn-sm btn-light" >
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
+                                        this.closest('form').submit();" style="text-decoration: none;">
+                            <div class="" style="color:black; ">Log Out</div>
+                        </x-responsive-nav-link>
+                    </form>
+                    </button>
+                </div>
+                @else
+                <div class="btn-group mx-3">
+                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <button class="dropdown-item" type="button"> <a href="{{ route('login') }}" style="color:black; text-decoration: none;"> Sign in </a></button>
+                        <button class="dropdown-item" type="button"><a href="{{ route('register') }}" style="color:black; text-decoration: none;"> Sign up </a></button>
+                    </div>
+                </div>
+                @endif
+                <div class="btn-group mr-2">
+                    <a href=" {{ route('dashboard') }}">
+                    <button type="button" class="btn btn-sm btn-light ">Profile</button>
+                    </a>
+                </div>
+                <div class="btn-group ">
+                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">EN</button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <button class="dropdown-item" type="button">VN</button>
+                    </div>
+                </div>
+            </div>
+            <div class="d-inline-flex align-items-center d-block d-lg-none">
+                <a href="" class="btn px-0 ml-2">
+                    <i class="fas fa-heart text-dark"></i>
+                    <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+                </a>
+                <a href="" class="btn px-0 ml-2">
+                    <i class="fas fa-shopping-cart text-dark"></i>
+                    <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
+        <div class="col-lg-4">
+            <a href="" class="text-decoration-none">
+                <span class="h1 text-uppercase text-primary bg-dark px-2">Multi</span>
+                <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
+            </a>
+        </div>
+        <div class="col-lg-4 col-6 text-left">
+            <form action="{{ route('search-home') }}" method="GET">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Search...">
+                    <div class="input-group-append">
+                        <span class="input-group-text bg-transparent text-primary">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-4 col-6 text-right">
+            <p class="m-0">Customer Service</p>
+            <h5 class="m-0">+0349903731</h5>
+        </div>
     </div>
 </div>
-<!-- end Top navbar -->
+<!-- Topbar End -->
 
 
-<!-- navbar -->
-<nav class="navbar navbar-expand-lg" id="navbar">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="index.html" id="logo"><span id="span1">E</span>Lectronic
-            <span>Shop</span></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span><img src="./public/images/menu.png" alt="" width="30px"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ route('home.index') }}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('product-index.index') }}">Product</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Category
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgb(67 0 86);">
-                        @foreach($categorList as $category)
-                        <li><a class="dropdown-item" href="{{ route('home-category-page', $category->id) }}">{{ $category->name }}</a></li>
-                        @endforeach
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./about.html">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./contact.html">Contact</a>
-                </li>
-            </ul>
-            <form class="d-flex" id="search" action="{{ route('search-home') }}" method="GET">
-                <input name="search" class="form-control me-2" type="search" placeholder="Search ....." aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-
-                <div class="cart">
-                    <a href="{{ route('page-card') }}">
-                        <button type="button" class="btn position-relative text-wrap">
-                            <i data-lucide="shopping-cart"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle" style="width: 50%; height: 100%">
-                                <span class="visually-hidden">New alerts</span>
+<!-- Navbar Start -->
+<div class="container-fluid bg-dark mb-30">
+    <div class="row px-xl-5">
+        <div class="col-lg-3 d-none d-lg-block">
+            <a class="btn d-flex align-items-center justify-content-between bg-primary w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
+                <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>Categories</h6>
+                <i class="fa fa-angle-down text-dark"></i>
+            </a>
+            <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
+                <div class="navbar-nav w-100">
+                    @foreach($categorList as $category)
+                    <a href="{{ route('home-category-page', $category->id) }}" class="nav-item nav-link">{{ $category->name }}</a>
+                    @endforeach
+                </div>
+            </nav>
+        </div>
+        <div class="col-lg-9">
+            <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
+                <a href="" class="text-decoration-none d-block d-lg-none">
+                    <span class="h1 text-uppercase text-dark bg-light px-2">Multi</span>
+                    <span class="h1 text-uppercase text-light bg-primary px-2 ml-n1">Shop</span>
+                </a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav mr-auto py-0">
+                        <a href="{{ route('home.index') }}" class="nav-item nav-link active">Home</a>
+                        <a href="{{ route('product-index.index') }}" class="nav-item nav-link">Shop</a>
+                        <!-- <a href="detail.html" class="nav-item nav-link">Shop Detail</a> -->
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
+                            <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
+                                <a href="{{ route('page-card') }}" class="dropdown-item">Shopping Cart</a>
+                                <a href="{{ route('checkout-page') }}" class="dropdown-item">Checkout</a>
+                            </div>
+                        </div>
+                        <a href="{{ route('contact-page') }}" class="nav-item nav-link">Contact</a>
+                    </div>
+                    <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
+                        <a href="#" class="btn px-0">
+                            <i class="fas fa-heart text-primary"></i>
+                            <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
+                        </a>
+                        <a href="{{ route('page-card') }}" class="btn px-0 ml-3">
+                            <i class="fas fa-shopping-cart text-primary"></i>
+                            <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">
                                 @php
                                 $cartItems = session('cart');
                                 $cartCount = is_array($cartItems) ? array_sum(array_column($cartItems, 'quantity')) : 0;
                                 @endphp
                                 {{ $cartCount }}
                             </span>
-                        </button>
-                    </a>
+                        </a>
+                    </div>
+                    <!--  -->
+
                 </div>
-
-
-            </form>
+            </nav>
         </div>
     </div>
-</nav>
-<!-- navbar -->
+</div>
+<!-- Navbar End -->

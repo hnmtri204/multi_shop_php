@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class OrderItemController extends Controller
@@ -24,7 +26,9 @@ class OrderItemController extends Controller
     public function create()
     {
         //
-        return view('admin.order-items.create');
+        $products = Product::all();
+        $orders = Order::all();
+        return view('admin.order-items.create', compact('products', 'orders'));
     }
 
     /**
@@ -58,8 +62,10 @@ class OrderItemController extends Controller
     public function edit(string $id)
     {
         //
+        $products = Product::all();
+        $orders = Order::all();
         $orderItem = OrderItem::findOrFail($id);
-        return view('admin.order-items.edit', compact('orderItem'));
+        return view('admin.order-items.edit', compact('orderItem', 'products', 'orders'));
     }
 
     /**

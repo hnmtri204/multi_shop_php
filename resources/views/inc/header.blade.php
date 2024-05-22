@@ -16,14 +16,14 @@
                     <p class="pt-1">Welcome, {{ $user->name }}! | Your email: {{ $user->email }}</p>
                 </div>
                 <div class="btn-group mx-2">
-                <button type="button" class="btn btn-sm btn-light" >
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
+                    <button type="button" class="btn btn-sm btn-light">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
                                         this.closest('form').submit();" style="text-decoration: none;">
-                            <div class="" style="color:black; ">Log Out</div>
-                        </x-responsive-nav-link>
-                    </form>
+                                <div class="" style="color:black; ">Log Out</div>
+                            </x-responsive-nav-link>
+                        </form>
                     </button>
                 </div>
                 @else
@@ -37,7 +37,7 @@
                 @endif
                 <div class="btn-group mr-2">
                     <a href=" {{ route('dashboard') }}">
-                    <button type="button" class="btn btn-sm btn-light ">Profile</button>
+                        <button type="button" class="btn btn-sm btn-light ">Profile</button>
                     </a>
                 </div>
                 <div class="btn-group ">
@@ -114,9 +114,8 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="{{ route('home.index') }}" class="nav-item nav-link active">Home</a>
-                        <a href="{{ route('product-index.index') }}" class="nav-item nav-link">Shop</a>
-                        <!-- <a href="detail.html" class="nav-item nav-link">Shop Detail</a> -->
+                        <a href="{{ route('home') }}" class="nav-item nav-link active">Home</a>
+                        <a href="{{ route('product-index') }}" class="nav-item nav-link">Shop</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
                             <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
@@ -124,6 +123,8 @@
                                 <a href="{{ route('checkout-page') }}" class="dropdown-item">Checkout</a>
                             </div>
                         </div>
+                        <!-- <a href="{{ route('page-card') }}" class="nav-item nav-link">Shopping Cart</a>
+                        <a href="{{ route('checkout-page') }}" class="nav-item nav-link">Checkout</a> -->
                         <a href="{{ route('contact-page') }}" class="nav-item nav-link">Contact</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">

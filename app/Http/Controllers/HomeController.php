@@ -11,7 +11,7 @@ class HomeController extends Controller
 {
     public function index() //LoginRequest $request
     {
-        $categories = Category::all();  
+        $categories = Category::all();
         $productHot = ModelsProduct::orderBy('view', 'desc')->paginate(8);
         $productNew = ModelsProduct::orderBy('created_at', 'desc')->take(4)->get();
         return view('home.index', compact('productHot', 'productNew', 'categories'));
@@ -25,7 +25,7 @@ class HomeController extends Controller
         //
         $products = ModelsProduct::all();
         $productShow = ModelsProduct::findOrFail($id);
-        return view('home.show', compact('productShow','products'));
+        return view('home.show', compact('productShow', 'products'));
     }
 
     //contact
@@ -35,12 +35,14 @@ class HomeController extends Controller
         return view('home.contact');
     }
 
+
     //search
     public function search(Request $request)
     {
         try {
             // return $request;
             $query = $request->input('search');
+            $request->session()->put('search_query', $query);
             // dd($query);
             $products = ModelsProduct::where('name', 'LIKE', "%$query%")->paginate(6);
             return view('home.search', compact('products'));
@@ -52,48 +54,71 @@ class HomeController extends Controller
     // filter search
     public function filter(Request $request)
     {
-        $price = $request->input('price');
-        $name = $request->input('name');
+        try {
+            $price = $request->input('price');
+            $name = $request->input('name');
+            $searchParameter = session()->get('search_query');
+            $query = ModelsProduct::query();
+            switch ($price) {
+                case 'all':
+                    $query->where('name', 'LIKE', "%$searchParameter%");
+                    break;
+                case '1':
+                    $query->where('price', '<=', 100);
+                    break;
+                case '2':
+                    $query->whereBetween('price', [100, 200]);
+                    break;
+                case '3':
+                    $query->whereBetween('price', [200, 300]);
+                    break;
+                case '4':
+                    $query->whereBetween('price', [300, 400]);
+                    break;
+                case '5':
+                    $query->where('price', '>=', 400);
+                    break;
+            }
 
-        $query = ModelsProduct::query();
-        switch ($price) {
-            case 'all':
-                break;
-            case '1':
-                $query->where('price', '<=', 100);
-                break;
-            case '2':
-                $query->whereBetween('price', [100, 200]);
-                break;
-            case '3':
-                $query->whereBetween('price', [200, 300]);
-                break;
-            case '4':
-                $query->whereBetween('price', [300, 400]);
-                break;
-            case '5':
-                $query->where('price', '>=', 400);
-                break;
+            switch ($name) {
+                case 'AtoZ':
+                    $query->orderBy('name');
+                    break;
+                case 'ZtoA':
+                    $query->orderByDesc('name');
+                    break;
+            }
+            // Lọc sản phẩm từ kết quả tìm kiếm
+            if ($price !== 'all') {
+                $query->where('name', 'LIKE', "%$searchParameter%");
+            }
+
+            $response = $query->paginate(6);
+            $products = ModelsProduct::paginate(6);
+
+            return view('home.search', compact('response', 'price', 'name', 'products'));
+        } catch (Throwable $th) {
+            return $th;
         }
-
-        switch ($name) {
-            case 'AtoZ':
-                $query->orderBy('name');
-                break;
-            case 'ZtoA':
-                $query->orderByDesc('name');
-                break;
-        }
-
-        $response = $query->paginate(6);
-        $products = ModelsProduct::paginate(6);
-
-        return view('home.search', compact('response', 'price', 'name', 'products'));
     }
-
-
- 
-
-
     
+
+    //vali
+    // public function vali()
+    // {
+    //     return view('validate.login');
+    // }
+    // public function handleVali(Request $request)
+    // {
+    //     try {
+    //         // $validate = $request->validate([
+    //         //     'email' => 'required|min:100',
+    //         //     'name' => 'required|min:100'
+    //         // ]);
+    //         if(isset($request))
+    //         return redirect()->back()->with('message', 'ok');
+    //     } catch (Throwable $th) {
+    //         return redirect()->back()->with('message', 'faild');
+    //     }
+    // }
 }

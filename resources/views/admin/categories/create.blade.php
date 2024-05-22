@@ -17,16 +17,21 @@
                                 <form action=" {{ route('admin.categories.store') }} " method="post">
                                     {{ csrf_field('') }}
                                     <div class="form-group">
+                                        <label for="inputText3" class="col-form-label">Img</label>
+                                        <input name="img" id="inputText3" type="file" placeholder="Img" class="form-control">
+                                    </div>
+                                    <div class="form-group">
                                         <label for="inputText3" class="col-form-label">Name</label>
-                                        <input name="name"  id="inputText3" type="text" placeholder="Name" class="form-control">
+                                        <input name="name" id="inputText3" type="text" placeholder="Name" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputEmail">Description</label>
-                                        <input name="description"  id="inputEmail" type="text" placeholder="Description" class="form-control">
+                                        <input name="description" id="inputEmail" type="text" placeholder="Description" class="form-control">
                                     </div>
-                                    
-                                 
-                                    <button type="submit" class="btn btn-success">Create!</button>
+                                    <div class="form-group d-flex justify-content-end">
+                                        <button type="button" class="btn btn-gray"><a href="{{ route('admin.categories.index') }}">Cancel!</a></button>
+                                        <button type="submit" class="btn btn-success">Create!</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>

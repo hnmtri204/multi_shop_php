@@ -8,31 +8,6 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-      
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-        
-    }
 
     /**
      * Display the specified resource.
@@ -40,34 +15,102 @@ class CategoryController extends Controller
     public function show(string $id)
     {
         //
+        // dd($id);
+        session()->put('id_cat', $id);
         $category = Category::findOrFail($id);
-        $productByCategory = Product::where('category_id', $id)->get();
-        // dd($productByCategory);
-        return view('categories.show', compact('productByCategory', 'category'));
+        $products = Product::where('category_id', $id)->paginate(6);
+        return view('categories.show', compact('products', 'category'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function filter(Request $request)
     {
-        //
-    }
+        $price = $request->input('price');
+        $name = $request->input('name');
+        $id = session()->get('id_cat');
+        $query = Product::query()->where('category_id', $id);
+        // dd( $query);
+        switch ($price) {
+            // case 'all':
+            //     break;
+            case '1':
+                $query->where('price', '<=', 100);
+                break;
+            case '2':
+                $query->whereBetween('price', [100, 200]);
+                break;
+            case '3':
+                $query->whereBetween('price', [200, 300]);
+                break;
+            case '4':
+                $query->whereBetween('price', [300, 400]);
+                break;
+            case '5':
+                $query->where('price', '>=', 400);
+                break;
+        }
+    
+        switch ($name) {
+            case 'AtoZ':
+                $query->orderBy('name');
+                break;
+            case 'ZtoA':
+                $query->orderByDesc('name');
+                break;
+        }
+    
+        $response = $query->paginate(6);
+        dd($response);
+        // $products = Product::paginate(6);
+        $products = Product::where('category_id', $id)->paginate(6);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+    
+        return view('categories.show', compact('response', 'price', 'name', 'products'));
     }
+    // filter search
+    // public function filter(Request $request)
+    // {
+    //     $price = $request->input('price');
+    //     $name = $request->input('name');
+    //     $id = session()->get('id_cat');
+    //     // dd($id);
+    //     $query = Product::query();
+    //     switch ($price) {
+    //         case 'all':
+    //             $query->Product::where('category_id', $id)->paginate(6);
+    //             break;
+    //         case '1':
+    //             $query->where('price', '<=', 100);
+    //             break;
+    //         case '2':
+    //             $query->whereBetween('price', [100, 200]);
+    //             break;
+    //         case '3':
+    //             $query->whereBetween('price', [200, 300]);
+    //             break;
+    //         case '4':
+    //             $query->whereBetween('price', [300, 400]);
+    //             break;
+    //         case '5':
+    //             $query->where('price', '>=', 400);
+    //             break;
+    //     }
+    //     switch ($name) {
+    //         case 'AtoZ':
+    //             $query->orderBy('name');
+    //             break;
+    //         case 'ZtoA':
+    //             $query->orderByDesc('name');
+    //             break;
+    //     }
+    //     if ($price !== 'all') {
+    //         $query->Product::where('category_id', $id)->paginate(6);
+    //     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+    //     $response = $query->paginate(6);
+    //     $products = Product::paginate(6);
+
+    //     return view('categories.show', compact('response', 'price', 'name', 'products'));
+    // }
+  
+    
 
 }

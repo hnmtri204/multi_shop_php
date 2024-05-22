@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -84,14 +85,14 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
-        $user = User::destroy($id);
-        // dd($user);
-        $message = "Delete successfully!";
-        if ($user === null) {
-            $message = "Update failed!";
+        $user = User::findOrFail($id);
+        if ($user->orders()->count() > 0) {
+            // Nếu có, trả về thông báo lỗi
+            return redirect()->route("admin.users.index")
+                ->with('message', "Không thể xóa người dùng này vì vẫn còn hoá đơn liên kết.");
         }
-        return redirect()->route("admin.users.index")->with('message', $message);
+        $user->delete();
+        return redirect()->route("admin.users.index")->with('message', 'Xoá người dùng thành công!');
 
     }
 }

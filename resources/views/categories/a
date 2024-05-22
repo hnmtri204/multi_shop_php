@@ -8,7 +8,8 @@
         <div class="col-12">
             <nav class="breadcrumb bg-light mb-30">
                 <a class="breadcrumb-item text-dark" href="{{ route('home') }}">Home</a>
-                <span class="breadcrumb-item active">Search</span>
+                <a class="breadcrumb-item text-dark" href="{{ route('product-index') }}">Shop</a>
+                <span class="breadcrumb-item active">Category</span>
             </nav>
         </div>
     </div>
@@ -24,7 +25,7 @@
             <!-- Price Start -->
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by price</span></h5>
             <div class="bg-light p-4 mb-30">
-                <form action="{{ route('filter-search') }}">
+                <form action="{{ route('filter-categories') }}">
                     <div class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3">
                         <input type="radio" class="custom-control-input" id="price-all" name="price" value="all" onclick="this.form.submit()" @if(isset($price) && $price=='all' ) checked @endif>
                         <label class="custom-control-label" for="price-all">All Price</label>
@@ -122,6 +123,7 @@
                             <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 200px; margin: 0 auto;">{{$product -> description}}</p>
                             <div class="d-flex align-items-center justify-content-center mt-2">
                                 <h5>${{ $product->price }}</h5>
+                                <!-- <h6 class="text-muted ml-2"><del>$123.00</del></h6> -->
                             </div>
                             <div class="d-flex align-items-center justify-content-center mb-1">
                                 <small class="fa fa-star text-primary mr-1"></small>
@@ -173,7 +175,7 @@
                         {{ $response->links('pagination::bootstrap-4') }}
                         @else
                         {{ $products->links('pagination::bootstrap-4') }}
-                        @endif  
+                        @endif
                     </nav>
                 </div>
                 <!--  -->

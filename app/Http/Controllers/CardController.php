@@ -12,7 +12,6 @@ class CardController extends Controller
     public function addToCard(Request $request, string $id)
     {
         $quantity = $request->get('quantity', 1);
-
         $product = Product::findOrFail($id);
         if (!$product) {
             return "lỗi!";
@@ -32,7 +31,6 @@ class CardController extends Controller
                 'quantity' => $quantity,
             ];
         }
-
         // Lưu giỏ hàng cập nhật vào session
         session()->put('cart', $cart);
         // dd($cart);

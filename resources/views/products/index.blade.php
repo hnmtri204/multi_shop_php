@@ -7,8 +7,8 @@
     <div class="row px-xl-5">
         <div class="col-12">
             <nav class="breadcrumb bg-light mb-30">
-                <a class="breadcrumb-item text-dark" href="{{ route('home.index') }}">Home</a>
-                <a class="breadcrumb-item text-dark" href="{{ route('product-index.index') }}">Shop</a>
+                <a class="breadcrumb-item text-dark" href="{{ route('home') }}">Home</a>
+                <a class="breadcrumb-item text-dark" href="{{ route('product-index') }}">Shop</a>
                 <span class="breadcrumb-item active">Shop List</span>
             </nav>
         </div>
@@ -171,11 +171,12 @@
                 <!--  -->
                 <div class="col-12 d-flex justify-content-center">
                     <nav>
-                        @if(isset($response) && $response >= '6')
+                        @if(isset($response))
                         {{ $response->links('pagination::bootstrap-4') }}
                         @else
                         {{ $products->links('pagination::bootstrap-4') }}
                         @endif
+                        
                     </nav>
                 </div>
                 <!--  -->

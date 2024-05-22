@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -24,7 +25,8 @@ class OrderController extends Controller
     public function create()
     {
         //
-        return view('admin.orders.create');
+        $users = User::all();
+        return view('admin.orders.create', compact('users'));
     }
 
     /**
@@ -58,8 +60,9 @@ class OrderController extends Controller
     public function edit(string $id)
     {
         //
+        $users = User::all();
         $order = Order::findOrFail($id);
-        return view('admin.orders.edit', compact('order'));
+        return view('admin.orders.edit', compact('order', 'users'));
     }
 
     /**

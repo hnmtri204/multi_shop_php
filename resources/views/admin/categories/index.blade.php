@@ -17,6 +17,7 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
+                            <th scope="col">Img</th>
                             <th scope="col">Name</th>
                             <th scope="col">Description</th>
                             <th scope="col">Edit</th>
@@ -27,6 +28,7 @@
                         @foreach($categories as $category)
                         <tr>
                             <th scope="row"> {{ $loop->index + 1 }}</th>
+                            <td class="text-primary"><img src="{{ url($category->img) }}" alt="" style="width: 150px; height: 150px;"></td>
                             <td class="text-primary">{{ $category->name }}</td>
                             <td class="text-primary">{{ $category->description }}</td>
                             <td><a href="{{ route('admin.categories.edit', $category->id) }}">Edit</td>

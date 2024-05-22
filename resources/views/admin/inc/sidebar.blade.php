@@ -33,7 +33,7 @@
 
                        <!-- logout -->
                        <li class="nav-item" style="margin-top: 250px;">
-                           <a class="nav-link" href=" {{ route('home.index') }} "  aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5"><i class="fas fa-fw fa-sign-out-alt"></i>Home Shop</a>
+                           <a class="nav-link" href=" {{ route('home') }} "  aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5"><i class="fas fa-fw fa-sign-out-alt"></i>Home Shop</a>
                        </li>
                        <!--  -->
                    </ul>

@@ -39,18 +39,7 @@
 
 
 
-        <!-- Role -->
-        <div class="mt-4">
-            <x-input-label for="role" :value="__('Role')" />
-
-            <select id="role" name="role" class="block mt-1 w-full" style="border-radius: 0.375rem; border: 1px solid rgb(208, 213, 219)">
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-            </select>
-
-            <x-input-error :messages="$errors->get('role')" class="mt-2" />
-        </div>
-
+       
 
 
         <div class="flex items-center justify-end mt-4">

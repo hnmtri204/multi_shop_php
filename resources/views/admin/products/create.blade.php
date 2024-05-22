@@ -49,8 +49,10 @@
                                         <label for="inputText4" class="col-form-label">Category_id</label>
                                         <input name="category_id"   id="inputText4" type="text" class="form-control" placeholder="Category_id">
                                     </div> -->
-
-                                    <button type="submit" class="btn btn-success">Create!</button>
+                                    <div class="form-group d-flex justify-content-end">
+                                        <button type="button" class="btn btn-gray"><a href="{{ route('admin.products.index') }}">Cancel!</a></button>
+                                        <button type="submit" class="btn btn-success">Create!</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>

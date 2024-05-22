@@ -42,7 +42,7 @@
                                 <form action=" {{ route('admin.products.destroy', $product->id) }} " method="post">
                                     {{ csrf_field('') }}
                                     {{ method_field('DELETE') }}
-                                    <button class="bg-danger" type="submit">Delete</button>
+                                    <button class="btn btn-danger" type="submit">Delete</button>
                                 </form>
                             </td>
                         </tr>

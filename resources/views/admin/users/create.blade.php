@@ -18,26 +18,29 @@
                                     {{ csrf_field('') }}
                                     <div class="form-group">
                                         <label for="inputText3" class="col-form-label">Name</label>
-                                        <input name="name"  id="inputText3" type="text" placeholder="Name" class="form-control">
+                                        <input name="name" id="inputText3" type="text" placeholder="Name" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputEmail">Email</label>
-                                        <input name="email"  id="inputEmail" type="email" placeholder="email@example.com" class="form-control">
+                                        <input name="email" id="inputEmail" type="email" placeholder="email@example.com" class="form-control">
                                         <p>We'll never share your email with anyone else.</p>
                                     </div>
                                     <div class="form-group">
                                         <label for="inputText4" class="col-form-label">Password</label>
-                                        <input name="password"   id="inputText4" type="text" class="form-control" placeholder="Password">
+                                        <input name="password" id="inputText4" type="text" class="form-control" placeholder="Password">
                                     </div>
                                     <div class="form-group">
-                                    <label for="123" class="col-form-label">Role</label>
-                                    <select id="123" name="role"  class="form-select" aria-label="Default select example">
-                                        <optionselected>User</option>
-                                        <option value="Admin">Admin</option>
-                                        <option value="User">User</option>
-                                    </select>
+                                        <label for="123" class="col-form-label">Role</label>
+                                        <select id="123" name="role" class="form-select" aria-label="Default select example">
+                                            <optionselected>User</option>
+                                                <option value="Admin">Admin</option>
+                                                <option value="User">User</option>
+                                        </select>
                                     </div>
-                                    <button type="submit" class="btn btn-success">Create!</button>
+                                    <div class="form-group d-flex justify-content-end">
+                                        <button type="button" class="btn btn-gray"><a href="{{ route('admin.users.index') }}">Cancel!</a></button>
+                                        <button type="submit" class="btn btn-success">Create!</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>

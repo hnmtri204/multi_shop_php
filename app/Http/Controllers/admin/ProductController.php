@@ -48,7 +48,7 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->file('img'));
+        // dd($request->file('img'));
         if ($request['img']) {
         // if ($request->hasFile('img')) {
             $imageName = $request->file('img')->hashName();
@@ -69,7 +69,7 @@ class ProductController extends Controller
             }
             return redirect()->route('admin.products.index')->with('message', $message);
         } else {
-            echo "nhu cc";
+            return redirect()->route('admin.products.index')->with('message', 'Create fail!');
         }
         
        

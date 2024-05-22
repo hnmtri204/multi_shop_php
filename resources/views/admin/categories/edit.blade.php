@@ -21,13 +21,15 @@
                                         <label for="inputText3" class="col-form-label">Name</label>
                                         <input name="name" value="{{ $category->name }}" id="inputText3" type="text" placeholder="Name" class="form-control">
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         <label for="inputText4" class="col-form-label">Description</label>
                                         <input name="description" value="{{ $category->description }}" id="inputText4" type="text" class="form-control" placeholder="Description">
                                     </div>
-                                  
-                                    <button type="submit" class="btn btn-success">Submit</button>
+                                    <div class="form-group d-flex justify-content-end">
+                                        <button type="button" class="btn btn-gray"><a href="{{ route('admin.categories.index') }}">Cancel!</a></button>
+                                        <button type="submit" class="btn btn-success">Submit</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>

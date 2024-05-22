@@ -22,7 +22,7 @@ class User extends Authenticatable
         'password',
         'role',
 
-        
+
     ];
 
     /**
@@ -46,5 +46,11 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    //relation ship
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

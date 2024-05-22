@@ -11,8 +11,8 @@
     <div class="row px-xl-5">
         <div class="col-12">
             <nav class="breadcrumb bg-light mb-30">
-                <a class="breadcrumb-item text-dark" href="{{ route('home.index') }}">Home</a>
-                <a class="breadcrumb-item text-dark" href="{{ route('product-index.index') }}">Shop</a>
+                <a class="breadcrumb-item text-dark" href="{{ route('home') }}">Home</a>
+                <a class="breadcrumb-item text-dark" href="{{ route('product-index') }}">Shop</a>
                 <span class="breadcrumb-item active">Checkout</span>
             </nav>
         </div>
@@ -20,8 +20,8 @@
 </div>
 <!-- Breadcrumb End -->
 
-@if(empty($cart))
-<h4 class="text-center">Hiện tại giỏ hàng của bạn đang trống!</h4>
+@if(empty($cart) || empty($user))
+<h4 class="text-center">Hiện tại giỏ hàng của bạn đang trống,<br> hoặc có thể bạn chưa đăng nhập!</h4>
 @else
 <!-- Checkout Start -->
 <div class="container-fluid">

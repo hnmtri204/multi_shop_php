@@ -14,8 +14,8 @@
     <div class="row px-xl-5">
         <div class="col-12">
             <nav class="breadcrumb bg-light mb-30">
-                <a class="breadcrumb-item text-dark" href="{{ route('home.index') }}">Home</a>
-                <a class="breadcrumb-item text-dark" href="{{ route('product-index.index') }}">Shop</a>
+                <a class="breadcrumb-item text-dark" href="{{ route('home') }}">Home</a>
+                <a class="breadcrumb-item text-dark" href="{{ route('product-index') }}">Shop</a>
                 <span class="breadcrumb-item active">Shop Detail</span>
             </nav>
         </div>
@@ -126,7 +126,7 @@
                                     <i class="fa fa-minus"></i>
                                 </button>
                             </div>
-                            <input type="text" class="form-control bg-secondary border-0 text-center" style="width: 70px;" value="1">
+                            <input name="quantity" type="text" class="form-control bg-secondary border-0 text-center" style="width: 70px;" value="1">
                             <div class="input-group-btn">
                                 <button class="btn btn-primary btn-plus" type="button">
                                     <i class="fa fa-plus"></i>

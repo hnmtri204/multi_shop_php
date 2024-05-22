@@ -19,30 +19,40 @@
                                     {{ method_field('PUT') }}
                                     <div class="form-group">
                                         <label for="inputText3" class="col-form-label"><img src="{{ $product->img }}" alt="" style="width: 150px; height: 150px;"></label>
-                                        <input name="img" value=""  id="inputText3" type="file" placeholder="Img" class="form-control">
+                                        <input name="img" value="" id="inputText3" type="file" placeholder="Img" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputEmail">Name</label>
-                                        <input name="name" value="{{ $product->name }}"  id="inputEmail" type="text" placeholder="Name" class="form-control">
+                                        <input name="name" value="{{ $product->name }}" id="inputEmail" type="text" placeholder="Name" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputText4" class="col-form-label">Description</label>
-                                        <input name="description" value="{{ $product->description }}"   id="inputText4" type="text" class="form-control" placeholder="Description">
+                                        <input name="description" value="{{ $product->description }}" id="inputText4" type="text" class="form-control" placeholder="Description">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputText4" class="col-form-label">Price</label>
-                                        <input name="price" value="{{ $product->price }}"   id="inputText4" type="text" class="form-control" placeholder="Price">
+                                        <input name="price" value="{{ $product->price }}" id="inputText4" type="text" class="form-control" placeholder="Price">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputText4" class="col-form-label">Quantity</label>
-                                        <input name="quantity" value="{{ $product->quantity }}"   id="inputText4" type="text" class="form-control" placeholder="Quantity">
+                                        <input name="quantity" value="{{ $product->quantity }}" id="inputText4" type="text" class="form-control" placeholder="Quantity">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputText4" class="col-form-label">Category_id</label>
-                                        <input name="category_id" value="{{ $product->category_id }}"    id="inputText4" type="text" class="form-control" placeholder="Category_id">
+                                        <select name="category_id" class="form-control dropdown-toggle">
+                                            @foreach($categorList as $cat)
+                                            <option value="{{ $cat->id }}">{{ $cat->id }}: {{ $cat->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
-                                 
-                                    <button type="submit" class="btn btn-success">Update!</button>
+                                    <!-- <div class="form-group">
+                                        <label for="inputText4" class="col-form-label">Category_id</label>
+                                        <input name="category_id" value="{{ $product->category_id }}"    id="inputText4" type="text" class="form-control" placeholder="Category_id">
+                                    </div> -->
+                                    <div class="form-group d-flex justify-content-end">
+                                        <button type="button" class="btn btn-gray"><a href="{{ route('admin.products.index') }}">Cancel!</a></button>
+                                        <button type="submit" class="btn btn-success">Update!</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>

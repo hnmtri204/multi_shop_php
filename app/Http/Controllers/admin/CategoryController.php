@@ -24,21 +24,17 @@ class CategoryController extends Controller
         return view('admin.categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $request['img']= '/img/'.$request['img'];
+        $request['img'] = '/img/' . $request['img'];
         $category = Category::create($request->only([
             'name', 'description', 'img'
         ]));
         $message = "Create success!";
-        if(empty($category))
-        $message = "Create fail!";
-        
-        return redirect()->route("admin.categories.index")->with('message', $message);
+        if (empty($category))
+            $message = "Create fail!";
 
+        return redirect()->route("admin.categories.index")->with('message', $message);
     }
 
     public function edit(string $id)
@@ -51,9 +47,9 @@ class CategoryController extends Controller
 
     public function update(Request $request, string $id)
     {
-        //\
+        //
         $category = Category::findOrFail($id);
-        $category -> update($request->only([
+        $category->update($request->only([
             'name', 'description'
         ]));
         $message = "Updated successfully!";
@@ -63,34 +59,17 @@ class CategoryController extends Controller
         return redirect()->route("admin.categories.index")->with('message', $message);
     }
 
-    // public function destroy(string $id)
-    // {
-    //     //
-    //     $category = Category::destroy($id);
-    //     // dd($category);
-    //     $message = "Delete successfully!";
-    //     if ($category === null) {
-    //         $message = "Update failed!";
-    //     }
-    //     return redirect()->route("admin.categories.index")->with('message', $message);
-
-    // }
-
     public function destroy(string $id)
-{
-    $category = Category::findOrFail($id);
-    // Kiểm tra xem danh mục có sản phẩm liên kết hay không
-    if ($category->products()->count() > 0) {
-        // Nếu có, trả về thông báo lỗi
+    {
+        $category = Category::findOrFail($id);
+        if ($category->products()->count() > 0) {
+            return redirect()->route("admin.categories.index")
+                ->with('message', "Không thể xóa danh mục này vì vẫn còn sản phẩm liên kết.");
+        }
+
+        $category->delete();
+
         return redirect()->route("admin.categories.index")
-            ->with('message', "Không thể xóa danh mục này vì vẫn còn sản phẩm liên kết.");
+            ->with('message', "Xóa danh mục thành công!");
     }
-
-    // Nếu không có sản phẩm liên kết, tiến hành xóa danh mục
-    $category->delete();
-
-    return redirect()->route("admin.categories.index")
-        ->with('message', "Xóa danh mục thành công!");
-}
-
 }

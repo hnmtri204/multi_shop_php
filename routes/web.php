@@ -36,6 +36,10 @@ Route::get('/contact-page', [HomeController::class, 'contact'])->name('contact-p
 Route::get('/filter-products', [ProductController::class, 'filterPrice'])->name('filter');
 Route::get('/filter-search', [HomeController::class, 'filter'])->name('filter-search');
 Route::get('/filter-categories', [CategoryController::class, 'filter'])->name('filter-categories');
+Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categories.show');
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('product.show');
+
+
 
 // add to card
 Route::post('/add-to-card/{id}', [CardController::class, 'addToCard'])->name('add-to-card');

@@ -31,12 +31,12 @@
                             <td>{{ $user->name }}</td>
                             <td class="text-primary">{{ $user->email }}</td>
                             <td>{{ $user->role }}</td>
-                            <td><a href="{{ route('admin.users.edit', $user->id) }}">Edit</td>
+                            <td><a href="{{ route('admin.users.edit', $user->id) }}"><i class="fa-solid fa-pen"></i></td>
                             <td>
                                 <form action=" {{ route('admin.users.destroy', $user->id ) }} " method="post">
                                     {{ csrf_field('') }}
                                     {{ method_field('DELETE') }}
-                                    <button class="bg-danger" type="submit">Delete</button>
+                                    <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash"></i></button>
                                 </form>
                             </td>
                         </tr>

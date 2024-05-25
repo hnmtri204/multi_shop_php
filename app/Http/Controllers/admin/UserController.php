@@ -14,7 +14,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
         $users = User::all();
         return view('admin.users.index', compact('users'));
     }
@@ -24,7 +23,6 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
         return view('admin.users.create');
     }
 
@@ -33,16 +31,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $user = User::create($request->only([
             'name', 'email', 'password', 'role'
         ]));
         $message = "Create success!";
-        if(empty($user))
-        $message = "Create fail!";
-        
-        return redirect()->route("admin.users.index")->with('message', $message);
+        if (empty($user))
+            $message = "Create fail!";
 
+        return redirect()->route("admin.users.index")->with('message', $message);
     }
 
     /**
@@ -58,7 +54,6 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
         $users = User::findOrFail($id);
         return view('admin.users.edit', compact('users'));
     }
@@ -70,7 +65,7 @@ class UserController extends Controller
     {
         //\
         $user = User::findOrFail($id);
-        $user -> update($request->only([
+        $user->update($request->only([
             'name', 'email', 'password', 'role'
         ]));
         $message = "Updated successfully!";
@@ -87,12 +82,10 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         if ($user->orders()->count() > 0) {
-            // Nếu có, trả về thông báo lỗi
             return redirect()->route("admin.users.index")
                 ->with('message', "Không thể xóa người dùng này vì vẫn còn hoá đơn liên kết.");
         }
         $user->delete();
         return redirect()->route("admin.users.index")->with('message', 'Xoá người dùng thành công!');
-
     }
 }

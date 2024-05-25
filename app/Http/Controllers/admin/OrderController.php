@@ -14,7 +14,6 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
         $orders = Order::all();
         return view('admin.orders.index', compact('orders'));
     }
@@ -24,7 +23,6 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
         $users = User::all();
         return view('admin.orders.create', compact('users'));
     }
@@ -34,16 +32,14 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $order = Order::create($request->only([
             'code', 'status', 'user_id'
         ]));
         $message = "Create success!";
-        if(empty($order))
-        $message = "Create fail!";
-        
-        return redirect()->route("admin.orders.index")->with('message', $message);
+        if (empty($order))
+            $message = "Create fail!";
 
+        return redirect()->route("admin.orders.index")->with('message', $message);
     }
 
     /**
@@ -51,7 +47,6 @@ class OrderController extends Controller
      */
     public function show(string $id)
     {
-        //
     }
 
     /**
@@ -59,7 +54,6 @@ class OrderController extends Controller
      */
     public function edit(string $id)
     {
-        //
         $users = User::all();
         $order = Order::findOrFail($id);
         return view('admin.orders.edit', compact('order', 'users'));
@@ -70,9 +64,8 @@ class OrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //\
         $order = Order::findOrFail($id);
-        $order -> update($request->only([
+        $order->update($request->only([
             'code', 'status', 'user_id'
         ]));
         $message = "Updated successfully!";
@@ -87,14 +80,12 @@ class OrderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
         $order = Order::destroy($id);
-        // dd($user);
         $message = "Delete successfully!";
         if ($order === null) {
             $message = "Update failed!";
         }
         return redirect()->route("admin.orders.index")->with('message', $message);
-
     }
 }

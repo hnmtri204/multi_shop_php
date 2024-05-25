@@ -31,12 +31,12 @@
                             <td class="text-primary"><img src="{{ url($category->img) }}" alt="" style="width: 150px; height: 150px;"></td>
                             <td class="text-primary">{{ $category->name }}</td>
                             <td class="text-primary">{{ $category->description }}</td>
-                            <td><a href="{{ route('admin.categories.edit', $category->id) }}">Edit</td>
+                            <td><a href="{{ route('admin.categories.edit', $category->id) }}"><i class="fa-solid fa-pen"></i></td>
                             <td>
                                 <form action=" {{ route('admin.categories.destroy', $category->id ) }} " method="post">
                                     {{ csrf_field('') }}
                                     {{ method_field('DELETE') }}
-                                    <button class="bg-danger" type="submit">Delete</button>
+                                    <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash"></i></button>
                                 </form>
                             </td>
                         </tr>

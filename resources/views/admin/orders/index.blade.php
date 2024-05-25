@@ -31,12 +31,12 @@
                             <td>{{ $order->code }}</td>
                             <td class="text-primary">{{ $order->status }}</td>
                             <td>{{ $order->user_id }}</td>
-                            <td><a href="{{ route('admin.orders.edit', $order->id) }}">Edit</td>
+                            <td><a href="{{ route('admin.orders.edit', $order->id) }}"><i class="fa-solid fa-pen"></i></td>
                             <td>
                                 <form action=" {{ route('admin.orders.destroy', $order->id ) }} " method="post">
                                     {{ csrf_field('') }}
                                     {{ method_field('DELETE') }}
-                                    <button class="bg-danger" type="submit">Delete</button>
+                                    <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash"></i></button>
                                 </form>
                             </td>
                         </tr>

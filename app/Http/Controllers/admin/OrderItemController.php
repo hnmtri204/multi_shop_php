@@ -15,7 +15,6 @@ class OrderItemController extends Controller
      */
     public function index()
     {
-        //
         $orderItems = OrderItem::all();
         return view('admin.order-items.index', compact('orderItems'));
     }
@@ -25,7 +24,6 @@ class OrderItemController extends Controller
      */
     public function create()
     {
-        //
         $products = Product::all();
         $orders = Order::all();
         return view('admin.order-items.create', compact('products', 'orders'));
@@ -36,16 +34,14 @@ class OrderItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $orderItem = OrderItem::create($request->only([
             'product_id', 'order_id', 'quantity', 'price'
         ]));
         $message = "Create success!";
-        if(empty($orderItem))
-        $message = "Create fail!";
-        
-        return redirect()->route("admin.order-items.index")->with('message', $message);
+        if (empty($orderItem))
+            $message = "Create fail!";
 
+        return redirect()->route("admin.order-items.index")->with('message', $message);
     }
 
     /**
@@ -53,7 +49,6 @@ class OrderItemController extends Controller
      */
     public function show(string $id)
     {
-        //
     }
 
     /**
@@ -61,7 +56,6 @@ class OrderItemController extends Controller
      */
     public function edit(string $id)
     {
-        //
         $products = Product::all();
         $orders = Order::all();
         $orderItem = OrderItem::findOrFail($id);
@@ -73,9 +67,8 @@ class OrderItemController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
         $orderItem = OrderItem::findOrFail($id);
-        $orderItem -> update($request->only([
+        $orderItem->update($request->only([
             'code', 'status', 'user_id'
         ]));
         $message = "Updated successfully!";
@@ -90,14 +83,11 @@ class OrderItemController extends Controller
      */
     public function destroy(string $id)
     {
-        //
         $orderItem = OrderItem::destroy($id);
-        // dd($user);
         $message = "Delete successfully!";
         if ($orderItem === null) {
             $message = "Update failed!";
         }
         return redirect()->route("admin.order-items.index")->with('message', $message);
-
     }
 }

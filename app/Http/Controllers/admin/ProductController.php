@@ -14,7 +14,6 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
         $products = Product::all();
         return view('admin.products.index', compact('products'));
     }
@@ -24,33 +23,13 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
         $categories = Category::all();
         return view('admin.products.create', compact('categories'));
     }
 
-
-    // public function store(Request $request)
-    // {
-    //     //
-    //     $request['img']= '/img/'.$request['img'];
-    //     // $request['img']= '/images/'.$request['img'];
-
-    //     $product = Product::create( $request->only([
-    //         'img', 'name', 'description', 'price', 'quantity', 'category_id'
-    //     ]));
-    //     $message = "Create succsess!";
-    //     if($product===null){
-    //     $message = "Create fail!";
-    //     }
-    //     return redirect()->route('admin.products.index')->with('message', $message);
-    // }
-
     public function store(Request $request)
     {
-        // dd($request->file('img'));
         if ($request['img']) {
-        // if ($request->hasFile('img')) {
             $imageName = $request->file('img')->hashName();
             $request->file('img')->storeAs('img', $imageName, 'public');
             $imageUrl = '/storage/img/' . $imageName;
@@ -75,14 +54,8 @@ class ProductController extends Controller
        
     }
     
-  
-
-
-
-
     public function edit(string $id)
     {
-        //
         $product = Product::findOrFail($id);
         return view('admin.products.edit', compact('product'));
     }
@@ -92,11 +65,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
         $product = Product::findOrFail($id);
 
         $request['img'] = '/img/' . $request['img'];
-        // $request['img']= '/images/'.$request['img'];
 
         $product->update($request->only([
             'img', 'name', 'description', 'price', 'quantity', 'category_id'

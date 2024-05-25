@@ -12,7 +12,6 @@ class CheckoutController extends Controller
     public function handleCheckout( Request $request)
     {
         $value = $request->only(['name', 'email', 'address', 'phone']);
-        // dd($value);
         if( $value['address'] == null || $value['phone'] == null )
         return redirect()->back()->with('waring', 'Vui lòng nhập đầy đủ thông tin!');
         else

@@ -9,7 +9,7 @@ use PHPUnit\Event\Code\Throwable;
 
 class HomeController extends Controller
 {
-    public function index() //LoginRequest $request
+    public function index()
     {
         $categories = Category::all();
         $productHot = ModelsProduct::orderBy('view', 'desc')->paginate(8);
@@ -22,16 +22,13 @@ class HomeController extends Controller
      */
     public function show(string $id)
     {
-        //
         $products = ModelsProduct::all();
         $productShow = ModelsProduct::findOrFail($id);
         return view('home.show', compact('productShow', 'products'));
     }
 
-    //contact
     public function contact()
     {
-        //
         return view('home.contact');
     }
 
@@ -101,24 +98,4 @@ class HomeController extends Controller
             return $th;
         }
     }
-    
-
-    //vali
-    // public function vali()
-    // {
-    //     return view('validate.login');
-    // }
-    // public function handleVali(Request $request)
-    // {
-    //     try {
-    //         // $validate = $request->validate([
-    //         //     'email' => 'required|min:100',
-    //         //     'name' => 'required|min:100'
-    //         // ]);
-    //         if(isset($request))
-    //         return redirect()->back()->with('message', 'ok');
-    //     } catch (Throwable $th) {
-    //         return redirect()->back()->with('message', 'faild');
-    //     }
-    // }
 }

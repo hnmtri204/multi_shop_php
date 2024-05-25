@@ -37,12 +37,12 @@
                             <td>{{ $product->price }}</td>
                             <td>{{ $product->quantity }}</td>
                             <td>{{ $product->category_id }}</td>
-                            <td><a href=" {{ route('admin.products.edit', $product->id) }} ">Edit</td>
+                            <td><a href=" {{ route('admin.products.edit', $product->id) }} "><i class="fa-solid fa-pen"></i></td>
                             <td>
                                 <form action=" {{ route('admin.products.destroy', $product->id) }} " method="post">
                                     {{ csrf_field('') }}
                                     {{ method_field('DELETE') }}
-                                    <button class="btn btn-danger" type="submit">Delete</button>
+                                    <button class="btn btn-danger" type="submit"><i class="fa-solid fa-trash"></i></button>
                                 </form>
                             </td>
                         </tr>

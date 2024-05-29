@@ -49,7 +49,7 @@
           $total += $subtotal;
           @endphp
           <tr>
-            <td class="align-middle"><img src="{{ $item['img'] }}" alt="" style="width: 50px;">{{ $item['name'] }}</td>
+            <td class="align-middle"><img src="{{ asset('storage/'.$item['img']) }}" alt="" style="width: 50px;">{{ $item['name'] }}</td>
             <td class="align-middle">${{ $item['price'] }}</td>
             <td class="align-middle">
               <form action="{{ route('update-card',$item['id'])}} " method="post">

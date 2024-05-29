@@ -19,6 +19,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
+                            <th scope="col">Password</th>
                             <th scope="col">Role</th>
                             <th scope="col">Edit</th>
                             <th scope="col">Delete</th>
@@ -30,6 +31,7 @@
                             <th scope="row"> {{ $loop->index + 1 }}</th>
                             <td>{{ $user->name }}</td>
                             <td class="text-primary">{{ $user->email }}</td>
+                            <td class="">{{ $user->password }}</td>
                             <td>{{ $user->role }}</td>
                             <td><a href="{{ route('admin.users.edit', $user->id) }}"><i class="fa-solid fa-pen"></i></td>
                             <td>

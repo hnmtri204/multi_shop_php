@@ -37,10 +37,6 @@
                          </li>
                      </ul>
                  </li>
-                 <!-- <li class="nav-item dropdown nav-user">
-                     <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ url('img/logoo.png') }}" alt="" class="user-avatar-md rounded-circle"></a>
-                 </li> -->
-                 <!-- User Dropdown -->
                  <!-- User Dropdown -->
                  <li class="nav-item dropdown nav-user">
                      <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

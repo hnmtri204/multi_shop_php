@@ -6,13 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\admin\HomeAdminController;
-use App\Http\Controllers\Api\CategoryController as ApiCategoryController;
 use App\Http\Controllers\CheckoutController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -33,9 +28,6 @@ Route::get('/page-show/{id}', [HomeController::class, 'show'])->name('home-show-
 Route::get('/page-categories/{id}', [CategoryController::class, 'show'])->name('home-category-page');
 Route::get('/products', [ProductController::class, 'index'])->name('product-index');
 Route::get('/contact-page', [HomeController::class, 'contact'])->name('contact-page');
-Route::get('/filter-products', [ProductController::class, 'filterPrice'])->name('filter');
-Route::get('/filter-search', [HomeController::class, 'filter'])->name('filter-search');
-Route::get('/filter-categories', [CategoryController::class, 'filter'])->name('filter-categories');
 Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categories.show');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('product.show');
 
@@ -60,9 +52,6 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('categories', App\Http\Controllers\admin\CategoryController::class, ['names' => 'admin.categories']);
     Route::resource('orders', App\Http\Controllers\admin\OrderController::class, ['names' => 'admin.orders']);
     Route::resource('order-items', App\Http\Controllers\admin\OrderItemController::class, ['names' => 'admin.order-items']);
-});
 
-// validate
-Route::get('/login-vali', [HomeController::class, 'vali'])->name('vali');
-Route::post('/login-handlevali', [HomeController::class, 'handleVali'])->name('handleVali');
+});
 

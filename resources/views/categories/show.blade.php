@@ -140,7 +140,6 @@
                         <label class="custom-control-label" for="price-5">$400 - $500</label>
                         <span class="badge border font-weight-normal">@if(request()->price == '5') {{ $products->total() }} @else ... @endif</span>
                     </div>
-                </form>
             </div>
             <!-- Price End -->
 
@@ -149,7 +148,6 @@
                 <span class="bg-secondary pr-3">Filter by name</span>
             </h5>
             <div class="bg-light p-4 mb-30">
-                <form action="{{ route('categories.show', $category->id) }}" method="GET">
                     <div class="custom-control custom-radio d-flex align-items-center justify-content-between mb-3">
                         <input type="radio" class="custom-control-input" id="name-atoz" name="name" value="AtoZ" onclick="this.form.submit()" @if(request()->name == 'AtoZ') checked @endif>
                         <label class="custom-control-label" for="name-atoz">A->Z</label>
@@ -175,10 +173,10 @@
                             <button class="btn btn-sm btn-light"><i class="fa fa-th-large"></i></button>
                             <button class="btn btn-sm btn-light ml-2"><i class="fa fa-bars"></i></button>
                             <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
-                                <span class="bg-secondary pr-3">{{ $category->name }}</span>
+                                <!-- <span class="bg-secondary pr-3">{{ $category->name }}</span> -->
                             </h2>
                         </div>
-                        <div class="ml-2">
+                        <!-- <div class="ml-2">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Sorting</button>
                                 <div class="dropdown-menu dropdown-menu-right">
@@ -195,14 +193,14 @@
                                     <a class="dropdown-item" href="#">30</a>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 @foreach($products as $product)
                 <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
                     <div class="product-item bg-light mb-4">
                         <div class="product-img position-relative overflow-hidden">
-                            <img class="img-fluid w-100" src="{{ $product->img }}" alt="">
+                            <img class="img-fluid w-100" src="{{ asset('storage/'.$product->img) }}" alt="">
                             <div class="product-action">
                                 <a class="btn btn-outline-dark btn-square" href="{{ route('home-show-page', $product->id) }}"><i class="fa fa-search"></i></a>
                             </div>
@@ -228,12 +226,9 @@
                 @endforeach
                 <div class="col-12 d-flex justify-content-center">
                     <nav>
-                        @if(isset($response))
-                        {{ $response->links('pagination::bootstrap-4') }}
-                        @else
+                        @if(isset($products))
                         {{ $products->links('pagination::bootstrap-4') }}
                         @endif
-
                     </nav>
                 </div>
             </div>

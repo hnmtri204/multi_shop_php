@@ -17,7 +17,7 @@ class Admin
     public function handle(Request $request, Closure $next): Response
     {
         //add
-        if (Auth::user()->role != 'admin') {
+        if (Auth::user()->role !== 'admin' && Auth::user()->role !== 'staff') {
             return redirect('dashboard');
         }
         //

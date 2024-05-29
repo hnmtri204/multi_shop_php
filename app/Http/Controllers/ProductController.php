@@ -7,53 +7,44 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index( Request $request)
     {
-        $products = Product::paginate(6);
-        return view('products.index', compact('products'));
-    }
-
-    public function filterPrice(Request $request)
-    {
-        $price = $request->input('price');
-        $name = $request->input('name');
-
         $query = Product::query();
+
+        // Initialize filter variables with default values
+        $price = $request->input('price', 'all');
+        $name = $request->input('name', 'AtoZ');
+
+        // Filter by price
         switch ($price) {
-            case 'all':
-                break;
             case '1':
                 $query->where('price', '<=', 100);
                 break;
             case '2':
-                $query->whereBetween('price', [100, 200]);
+                $query->where('price', '>', 100)->where('price', '<=', 200);
                 break;
             case '3':
-                $query->whereBetween('price', [200, 300]);
+                $query->where('price', '>', 200)->where('price', '<=', 300);
                 break;
             case '4':
-                $query->whereBetween('price', [300, 400]);
+                $query->where('price', '>', 300)->where('price', '<=', 400);
                 break;
             case '5':
-                $query->where('price', '>=', 400);
+                $query->where('price', '>', 400)->where('price', '<=', 500);
+                break;
+            default:
                 break;
         }
 
-        switch ($name) {
-            case 'AtoZ':
-                $query->orderBy('name');
-                break;
-            case 'ZtoA':
-                $query->orderByDesc('name');
-                break;
+        // Filter by name
+        if ($name == 'AtoZ') {
+            $query->orderBy('name', 'asc');
+        } elseif ($name == 'ZtoA') {
+            $query->orderBy('name', 'desc');
         }
 
-        $response = $query->paginate(6);
-        $products = Product::paginate(6);
+        $products = $query->paginate(6);
 
-        return view('products.index', compact('response', 'price', 'name', 'products'));
+        return view('products.index', compact('products', 'price', 'name'));
     }
 }

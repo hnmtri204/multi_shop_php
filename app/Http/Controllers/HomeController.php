@@ -37,65 +37,58 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         try {
-            // return $request;
-            $query = $request->input('search');
-            $request->session()->put('search_query', $query);
-            // dd($query);
-            $products = ModelsProduct::where('name', 'LIKE', "%$query%")->paginate(6);
-            return view('home.search', compact('products'));
-        } catch (Throwable $th) {
-            return $th;
-        }
-    }
-
-    // filter search
-    public function filter(Request $request)
-    {
-        try {
-            $price = $request->input('price');
-            $name = $request->input('name');
-            $searchParameter = session()->get('search_query');
-            $query = ModelsProduct::query();
+            // Lưu giá trị tìm kiếm vào session
+            $request->session()->put('search_query', $request->input('search'));
+    
+            $query = $request->session()->get('search_query');
+            $queries = ModelsProduct::where('name', 'LIKE', "%$query%");
+    
+            // Khởi tạo các biến lọc với giá trị mặc định
+            $price = $request->input('price', 'all');
+            $name = $request->input('name', 'AtoZ');
+            session()->put('price_query', $price);
+            session()->put('name_query', $name);
+            // Lọc theo giá
             switch ($price) {
-                case 'all':
-                    $query->where('name', 'LIKE', "%$searchParameter%");
-                    break;
                 case '1':
-                    $query->where('price', '<=', 100);
+                    $queries->where('price', '<=', 100);
                     break;
                 case '2':
-                    $query->whereBetween('price', [100, 200]);
+                    $queries->where('price', '>', 100)->where('price', '<=', 200);
                     break;
                 case '3':
-                    $query->whereBetween('price', [200, 300]);
+                    $queries->where('price', '>', 200)->where('price', '<=', 300);
                     break;
                 case '4':
-                    $query->whereBetween('price', [300, 400]);
+                    $queries->where('price', '>', 300)->where('price', '<=', 400);
                     break;
                 case '5':
-                    $query->where('price', '>=', 400);
+                    $queries->where('price', '>', 400)->where('price', '<=', 500);
+                    break;
+                default:
                     break;
             }
-
-            switch ($name) {
-                case 'AtoZ':
-                    $query->orderBy('name');
-                    break;
-                case 'ZtoA':
-                    $query->orderByDesc('name');
-                    break;
+    
+            // Lọc theo tên
+            if ($name == 'AtoZ') {
+                $queries->orderBy('name', 'asc');
+            } elseif ($name == 'ZtoA') {
+                $queries->orderBy('name', 'desc');
             }
-            // Lọc sản phẩm từ kết quả tìm kiếm
-            if ($price !== 'all') {
-                $query->where('name', 'LIKE', "%$searchParameter%");
-            }
-
-            $response = $query->paginate(6);
-            $products = ModelsProduct::paginate(6);
-
-            return view('home.search', compact('response', 'price', 'name', 'products'));
+    
+            $products = $queries->paginate(6)->appends([
+                'search' => $request->input('search'),
+                'price' => $request->input('price'),
+                'name' => $request->input('name'),
+            ]);
+    
+            // Trả về view với các biến đã được lưu trong session
+            return view('home.search', compact('products', 'price', 'name'));
         } catch (Throwable $th) {
             return $th;
         }
     }
+    
+    
+   
 }

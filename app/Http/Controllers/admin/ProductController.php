@@ -29,31 +29,34 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        if ($request['img']) {
-            $imageName = $request->file('img')->hashName();
-            $request->file('img')->storeAs('img', $imageName, 'public');
-            $imageUrl = '/storage/img/' . $imageName;
-            
-            $product = Product::create([
-                'img' => $imageUrl,
-                'name' => $request->input('name'),
-                'description' => $request->input('description'),
-                'price' => $request->input('price'),
-                'quantity' => $request->input('quantity'),
-                'category_id' => $request->input('category_id'),
-            ]);
-            $message = "Create succsess!";
-            if ($product === null) {
-                $message = "Create fail!";
-            }
-            return redirect()->route('admin.products.index')->with('message', $message);
-        } else {
-            return redirect()->route('admin.products.index')->with('message', 'Create fail!');
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'category_id' => 'required|string',
+            'price' => 'required|numeric',
+            'quantity' => 'required|integer',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('img', 'public');
         }
-        
-       
+
+        $product = Product::create([
+            'img' => $imagePath,
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'category_id' => $request->input('category_id'),
+            'price' => $request->input('price'),
+            'quantity' => $request->input('quantity'),
+        ]);
+
+        $message = $product ? "Successfully created" : "Creation failed";
+
+        return redirect()->route("admin.products.index" );
     }
     
+
     public function edit(string $id)
     {
         $product = Product::findOrFail($id);

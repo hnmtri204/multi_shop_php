@@ -105,7 +105,7 @@
     <div class="row px-xl-5 pb-3">
         @foreach($categories as $category)
         <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-            <a class="text-decoration-none" href="">
+            <a class="text-decoration-none" href="{{ route('home-category-page', $category->id) }}">
                 <div class="cat-item d-flex align-items-center mb-4">
                     <div class="overflow-hidden" style="width: 100px; height: 100px;">
                         <img class="img-fluid" src="{{ url($category->img) }}" alt="">
@@ -131,7 +131,8 @@
         <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
             <div class="product-item bg-light mb-4">
                 <div class="product-img position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="{{ url($product -> img)}}" alt="">
+                    <img class="img-fluid w-100" src="{{ asset('storage/'.$product->img) }}" alt="">
+                    <!-- <img class="img-fluid w-100" src="{{ url($product -> img)}}" alt=""> -->
                     <div class="product-action">
                         <a class="btn btn-outline-dark btn-square" href="{{ route('home-show-page', $product->id) }}"><i class="fa fa-search"></i></a>
                     </div>
@@ -197,8 +198,7 @@
         <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
             <div class="product-item bg-light mb-4">
                 <div class="product-img position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="{{ url($product -> img)}}" alt="">
-                    <!-- <img class="img-fluid w-100" src="img/product-1.jpg" alt=""> -->
+                    <img class="img-fluid w-100" src="{{ asset('storage/'.$product->img) }}" alt="">
                     <div class="product-action">
                         <a class="btn btn-outline-dark btn-square" href="{{ route('home-show-page', $product->id) }}"><i class="fa fa-search"></i></a>
                     </div>

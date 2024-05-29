@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         //
-        Schema::table('categories', function (Blueprint $table) {
-            $table->string('img')->nullable();
+        Schema::table('orders', function(Blueprint $table){
+            $table->double('total');
         });
     }
 

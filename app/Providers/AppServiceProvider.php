@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
-use App\Models\Post;
-use App\Policies\PostPolicy;
+use App\Models\User;
+use App\Policies\UserPolicy;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -12,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      * Register any application services.
      */
     protected $policies = [
-        Post::class => PostPolicy::class,
+        User::class => UserPolicy::class,
     ];
     public function register(): void
     {
@@ -25,6 +27,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
-
     }
 }

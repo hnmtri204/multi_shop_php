@@ -45,12 +45,8 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <!-- <div class="form-group">
-                                        <label for="inputText4" class="col-form-label">Category_id</label>
-                                        <input name="category_id" value="{{ $product->category_id }}"    id="inputText4" type="text" class="form-control" placeholder="Category_id">
-                                    </div> -->
                                     <div class="form-group d-flex justify-content-end">
-                                        <button type="button" class="btn btn-gray"><a href="{{ route('admin.products.index') }}">Cancel!</a></button>
+                                        <button type="button" class="btn btn-gray mr-4"><a href="{{ route('admin.products.index') }}">Cancel!</a></button>
                                         <button type="submit" class="btn btn-success">Update!</button>
                                     </div>
                                 </form>

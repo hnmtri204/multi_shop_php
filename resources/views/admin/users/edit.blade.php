@@ -31,15 +31,16 @@
                                         <input name="password" value="{{ $users->password }}" id="inputText4" type="text" class="form-control" placeholder="Password">
                                     </div>
                                     <div class="form-group">
-                                        <label for="123" class="col-form-label">Role</label>
-                                        <select id="123" name="role" value="{{ $users->role }}" class="form-select" aria-label="Default select example">
-                                            <optionselected>User</option>
-                                                <option value="Admin">Admin</option>
-                                                <option value="User">User</option>
+                                        <label for="inputText4" class="col-form-label">Role</label>
+                                        <select name="category_id" class="form-control dropdown-toggle" aria-label="Default select example">
+                                        <optionselected>User</option>
+                                                <option value="user">User</option>
+                                                <option value="staff">Staff</option>
+                                                <option value="admin">Admin</option>
                                         </select>
                                     </div>
                                     <div class="form-group d-flex justify-content-end">
-                                        <button type="button" class="btn btn-gray"><a href="{{ route('admin.users.index') }}">Cancel!</a></button>
+                                        <button type="button" class="btn btn-gray mr-4"><a href="{{ route('admin.users.index') }}">Cancel!</a></button>
                                         <button type="submit" class="btn btn-success">Submit</button>
                                     </div>
                                 </form>

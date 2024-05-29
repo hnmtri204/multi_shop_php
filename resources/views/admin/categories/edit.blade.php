@@ -27,7 +27,7 @@
                                         <input name="description" value="{{ $category->description }}" id="inputText4" type="text" class="form-control" placeholder="Description">
                                     </div>
                                     <div class="form-group d-flex justify-content-end">
-                                        <button type="button" class="btn btn-gray"><a href="{{ route('admin.categories.index') }}">Cancel!</a></button>
+                                        <button type="button" class="btn btn-gray mr-4"><a href="{{ route('admin.categories.index') }}">Cancel!</a></button>
                                         <button type="submit" class="btn btn-success">Submit</button>
                                     </div>
                                 </form>

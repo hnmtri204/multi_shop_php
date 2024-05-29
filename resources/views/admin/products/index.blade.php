@@ -31,7 +31,7 @@
                         @foreach($products as $product)
                         <tr>
                             <th scope="row"> {{ $loop->index + 1 }}</th>
-                            <td><img src="{{ $product->img }}" alt="" style="width: 150px; height: 150px;"></td>
+                            <td><img src="{{ asset('storage/'.$product->img) }}" alt="" style="width: 150px; height: 150px;"></td>
                             <td class="text-primary">{{ $product->name }}</td>
                             <td>{{ $product->description }}</td>
                             <td>{{ $product->price }}</td>

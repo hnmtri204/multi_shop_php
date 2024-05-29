@@ -13,7 +13,7 @@ class CategoryController extends Controller
      * Display the specified resource.
      */
 
-    public function show($id, Request $request)
+    public function show(String $id, Request $request)
     {
         $category = Category::find($id);
 
@@ -51,7 +51,7 @@ class CategoryController extends Controller
             $query->orderBy('name', 'desc');
         }
 
-        $products = $query->paginate(2);
+        $products = $query->paginate(6);
 
         return view('categories.show', compact('category', 'products', 'price', 'name'));
     }

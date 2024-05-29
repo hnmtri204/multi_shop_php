@@ -25,10 +25,6 @@
                                         <label for="inputEmail">Status</label>
                                         <input name="status" value="{{ $order->status }}" id="inputEmail" type="text" placeholder="Status" class="form-control">
                                     </div>
-                                    <!-- <div class="form-group">
-                                        <label for="inputText4" class="col-form-label">User_id</label>
-                                        <input name="user_id" value="{{ $order->user_id }}" id="inputText4" type="text" class="form-control" placeholder="User_id">
-                                    </div> -->
                                     <div class="form-group">
                                         <label for="inputText4" class="col-form-label">User_id</label>
                                         <select name="category_id" class="form-control dropdown-toggle">
@@ -38,7 +34,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group d-flex justify-content-end">
-                                        <button type="button" class="btn btn-gray"><a href="{{ route('admin.orders.index') }}">Cancel!</a></button>
+                                        <button type="button" class="btn btn-gray mr-4"><a href="{{ route('admin.orders.index') }}">Cancel!</a></button>
                                         <button type="submit" class="btn btn-success">Submit</button>
                                     </div>
                                 </form>

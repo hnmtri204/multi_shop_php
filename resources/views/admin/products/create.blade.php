@@ -14,11 +14,12 @@
                         <div class="card">
                             <h5 class="card-header">Products Form</h5>
                             <div class="card-body">
-                                <form action=" {{ route('admin.products.store') }} " method="post">
+                                <form action=" {{ route('admin.products.store') }} " method="post" enctype="multipart/form-data" >
+                                <!-- enctype="multipart/form-data" -->
                                     {{ csrf_field('') }}
                                     <div class="form-group">
                                         <label for="inputText3" class="col-form-label">Img</label>
-                                        <input name="img" id="inputText3" type="file" placeholder="Img" class="form-control">
+                                        <input name="image" id="inputText3" type="file" placeholder="Img" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputEmail">Name</label>
@@ -44,13 +45,8 @@
                                             @endforeach
                                         </select>
                                     </div>
-
-                                    <!-- <div class="form-group">
-                                        <label for="inputText4" class="col-form-label">Category_id</label>
-                                        <input name="category_id"   id="inputText4" type="text" class="form-control" placeholder="Category_id">
-                                    </div> -->
                                     <div class="form-group d-flex justify-content-end">
-                                        <button type="button" class="btn btn-gray"><a href="{{ route('admin.products.index') }}">Cancel!</a></button>
+                                        <button type="button" class="btn btn-gray mr-4"><a href="{{ route('admin.products.index') }}">Cancel!</a></button>
                                         <button type="submit" class="btn btn-success">Create!</button>
                                     </div>
                                 </form>

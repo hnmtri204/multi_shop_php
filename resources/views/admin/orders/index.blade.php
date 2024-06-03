@@ -17,7 +17,7 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">User_id</th>
+                            <th scope="col">User</th>
                             <th scope="col">Address</th>
                             <th scope="col">Phone</th>
                             <th scope="col">Code</th>
@@ -32,7 +32,7 @@
                         @foreach($orders as $order)
                         <tr>
                             <th scope="row"> {{ $loop->index + 1 }}</th>
-                            <td>{{ $order->user_id }}</td>
+                            <td>{{ $order->user->name }}</td>
                             <td>{{ $order->address }}</td>
                             <td>{{ $order->phone }}</td>
                             <td>{{ $order->code }}</td>

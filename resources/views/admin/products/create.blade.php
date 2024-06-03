@@ -45,6 +45,10 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="inputText4" class="col-form-label">View</label>
+                                        <input name="view" id="inputText4" type="number" class="form-control" placeholder="View">
+                                    </div>
                                     <div class="form-group d-flex justify-content-end">
                                         <button type="button" class="btn btn-gray mr-4"><a href="{{ route('admin.products.index') }}">Cancel!</a></button>
                                         <button type="submit" class="btn btn-success">Create!</button>

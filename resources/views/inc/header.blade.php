@@ -123,14 +123,18 @@
                                 <a href="{{ route('checkout-page') }}" class="dropdown-item">Checkout</a>
                             </div>
                         </div>
-                        <!-- <a href="{{ route('page-card') }}" class="nav-item nav-link">Shopping Cart</a>
-                        <a href="{{ route('checkout-page') }}" class="nav-item nav-link">Checkout</a> -->
                         <a href="{{ route('contact-page') }}" class="nav-item nav-link">Contact</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                        <a href="#" class="btn px-0">
+                        <a href="{{ route('page-like') }}" class="btn px-0">
                             <i class="fas fa-heart text-primary"></i>
-                            <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
+                            <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">
+                                @php
+                                $likeItems = session('like');
+                                $likeCount = is_array($likeItems) ? array_sum(array_column($likeItems, 'quantity')) : 0;
+                                @endphp
+                                {{ $likeCount }}
+                            </span>
                         </a>
                         <a href="{{ route('page-card') }}" class="btn px-0 ml-3">
                             <i class="fas fa-shopping-cart text-primary"></i>

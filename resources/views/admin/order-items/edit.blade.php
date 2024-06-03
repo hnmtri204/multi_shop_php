@@ -37,7 +37,7 @@
                                         <label for="inputText4" class="col-form-label">Order_id</label>
                                         <select name="category_id" class="form-control dropdown-toggle">
                                             @foreach($orders as $order)
-                                            <option value="{{ $order->id }}">{{ $order->id }}: {{ $order->name }}</option>
+                                            <option value="{{ $order->id }}">{{ $order->id }}</option>
                                             @endforeach
                                         </select>
                                     </div>

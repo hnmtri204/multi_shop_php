@@ -22,7 +22,8 @@
                             <th scope="col">Description</th>
                             <th scope="col">Price</th>
                             <th scope="col">Quantity</th>
-                            <th scope="col">Category_id</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">View</th>
                             <th scope="col">Edit</th>
                             <th scope="col">Delete</th>
                         </tr>
@@ -36,7 +37,8 @@
                             <td>{{ $product->description }}</td>
                             <td>{{ $product->price }}</td>
                             <td>{{ $product->quantity }}</td>
-                            <td>{{ $product->category_id }}</td>
+                            <td>{{ $product->category->name }}</td>
+                            <td>{{ $product->view }}</td>
                             <td><a href=" {{ route('admin.products.edit', $product->id) }} "><i class="fa-solid fa-pen"></i></td>
                             <td>
                                 <form action=" {{ route('admin.products.destroy', $product->id) }} " method="post">

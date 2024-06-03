@@ -17,8 +17,8 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Product_id</th>
-                            <th scope="col">Order_id</th>
+                            <th scope="col">Order</th>
+                            <th scope="col">Product</th>
                             <th scope="col">Quantity</th>
                             <th scope="col">Price</th>
                             <th scope="col">Edit</th>
@@ -29,8 +29,8 @@
                         @foreach($orderItems as $orderItem)
                         <tr>
                             <th scope="row"> {{ $loop->index + 1 }}</th>
-                            <td>{{ $orderItem->product_id }}</td>
-                            <td class="text-primary">{{ $orderItem->order_id }}</td>
+                            <td class="text-primary">{{ $orderItem->order->id }}</td>
+                            <td>{{ $orderItem->product->name }}</td>
                             <td>{{ $orderItem->quantity }}</td>
                             <td>{{ $orderItem->price }}</td>
                             <td><a href="{{ route('admin.order-items.edit', $orderItem->id) }}"><i class="fa-solid fa-pen"></i></td>

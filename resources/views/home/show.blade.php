@@ -280,10 +280,8 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{ asset('storage/'.$product->img) }}" alt="">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                        <a class="btn btn-outline-dark btn-square" href="{{ route('home-show-page', $product->id) }}"><i class="fa fa-search"></i></a>
+                        <a class="btn btn-outline-dark btn-square" href="{{ route('like',  $product->id) }}"><i class="far fa-heart"></i></a>
                         </div>
                     </div>
                     <div class="text-center py-4">

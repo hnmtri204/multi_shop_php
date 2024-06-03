@@ -32,12 +32,12 @@
                        </li>
 
                        <!-- logout -->
-                       <li class="nav-item" style="margin-top: 250px;">
+                       <!-- <li class="nav-item" style="margin-top: 250px;">
                            <a class="nav-link" href=" {{ route('home') }} " aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5"><i class="fa fa-fw fa-solid fa-house"></i>Home Shop</a>
-                       </li>
+                       </li> -->
                        <!--  -->
                        <!-- Logout -->
-                       <li class="nav-item">
+                       <li class="nav-item" style="margin-top: 250px;">
                            <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                <i class="fas fa-fw fa-sign-out-alt"></i>Logout
                            </a>

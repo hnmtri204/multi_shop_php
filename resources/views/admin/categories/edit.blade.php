@@ -14,9 +14,13 @@
                         <div class="card">
                             <h5 class="card-header">Categories Form</h5>
                             <div class="card-body">
-                                <form action=" {{ route('admin.categories.update', $category->id) }} " method="post">
+                                <form action=" {{ route('admin.categories.update', $category->id) }} " method="post" enctype="multipart/form-data">
                                     {{ csrf_field('') }}
                                     {{ method_field('PUT') }}
+                                    <div class="form-group">
+                                        <label for="inputText3" class="col-form-label"><img src="{{ asset('storage/'.$category->img) }}" alt="" style="width: 150px; height: 150px;"></label>
+                                        <input name="image" value="" id="inputText3" type="file" placeholder="Img" class="form-control">
+                                    </div>
                                     <div class="form-group">
                                         <label for="inputText3" class="col-form-label">Name</label>
                                         <input name="name" value="{{ $category->name }}" id="inputText3" type="text" placeholder="Name" class="form-control">

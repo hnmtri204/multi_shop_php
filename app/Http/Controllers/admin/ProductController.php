@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -51,9 +52,9 @@ class ProductController extends Controller
             'quantity' => $request->input('quantity'),
         ]);
 
-        $message = $product ? "Successfully created" : "Creation failed";
+        $message = $product ? "Successfully created" : "Created failed";
 
-        return redirect()->route("admin.products.index" );
+        return redirect()->route("admin.products.index" )->with('message', $message);
     }
     
 
@@ -63,23 +64,74 @@ class ProductController extends Controller
         return view('admin.products.edit', compact('product'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
+    // public function update(Request $request, string $id)
+    // {
+    //     $request->validate([
+    //         'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    //         'name' => 'required|string|max:255',
+    //         'description' => 'required|string',
+    //         'category_id' => 'required|string',
+    //         'price' => 'required|numeric',
+    //         'quantity' => 'required|integer',
+    //     ]);
+        
+    //     if ($request->hasFile('image')) {
+    //         $imagePath = $request->file('image')->store('img', 'public');
+    //     }
+
+    //     $product = Product::findOrFail($id);
+
+
+    //     $product->update([
+    //         'img' => $imagePath,
+    //         'name' => $request->input('name'),
+    //         'description' => $request->input('description'),
+    //         'category_id' => $request->input('category_id'),
+    //         'price' => $request->input('price'),
+    //         'quantity' => $request->input('quantity'),
+    //     ]);
+    //     $message = $product ? "Successfully Updated" : "Updated failed";
+    //     return redirect()->route('admin.products.index')->with('message', $message);
+    // }
+
+    
     public function update(Request $request, string $id)
     {
         $product = Product::findOrFail($id);
 
-        $request['img'] = '/img/' . $request['img'];
+        // Validate the request
+        $request->validate([
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'quantity' => 'required|integer',
+            'view' => 'required|numeric',
 
-        $product->update($request->only([
-            'img', 'name', 'description', 'price', 'quantity', 'category_id'
-        ]));
-        $message = "Update succsess!";
-        if ($product === null) {
-            $message = "Update fail!";
+        ]);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('img', 'public');
+            // Delete previous image if exists
+            if ($product->img) {
+                Storage::disk('public')->delete($product->img);
+            }
+            $product->img = $imagePath;
         }
-        return redirect()->route('admin.products.index')->with('message', $message);
+
+        // Update product details
+        $product->name = $request->input('name');
+        $product->description = $request->input('description');
+        $product->price = $request->input('price');
+        $product->quantity = $request->input('quantity');
+        $product->category_id = $request->input('category_id');
+        $product->view = $request->input('view');
+
+        // Save the changes
+        $product->save();
+        return redirect()->route('admin.products.index')->with('message', 'Product updated successfully.');
     }
 
     /**

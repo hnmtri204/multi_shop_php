@@ -28,7 +28,7 @@
                         @foreach($categories as $category)
                         <tr>
                             <th scope="row"> {{ $loop->index + 1 }}</th>
-                            <td class="text-primary"><img src="{{ url($category->img) }}" alt="" style="width: 150px; height: 150px;"></td>
+                            <td class="text-primary"><img src="{{ asset('storage/'.$category->img) }}" alt="" style="width: 150px; height: 150px;"></td>
                             <td class="text-primary">{{ $category->name }}</td>
                             <td class="text-primary">{{ $category->description }}</td>
                             <td><a href="{{ route('admin.categories.edit', $category->id) }}"><i class="fa-solid fa-pen"></i></td>

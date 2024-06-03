@@ -7,7 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CheckoutController;
-
+use App\Http\Controllers\LikeController;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -39,6 +39,11 @@ Route::get('/page-card', [CardController::class, 'showCard'])->name('page-card')
 Route::delete('/delete-card/{id}', [CardController::class, 'deleteCard'])->name('delete-card');
 Route::put('/update-card/{id}', [CardController::class, 'updateCard'])->name('update-card');
 
+// like
+Route::get('/like/{id}', [LikeController::class, 'like'])->name('like');
+Route::get('/page-like', [LikeController::class, 'showLike'])->name('page-like');
+Route::delete('/delete-like/{id}', [LikeController::class, 'deleteLike'])->name('delete-like');
+
 //checkout
 Route::get('/checkout-page', [CardController::class, 'showCardCheckout'])->name('checkout-page');
 Route::post('/checkout', [CheckoutController::class, 'handleCheckout'])->name('checkout');
@@ -52,6 +57,4 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::resource('categories', App\Http\Controllers\admin\CategoryController::class, ['names' => 'admin.categories']);
     Route::resource('orders', App\Http\Controllers\admin\OrderController::class, ['names' => 'admin.orders']);
     Route::resource('order-items', App\Http\Controllers\admin\OrderItemController::class, ['names' => 'admin.order-items']);
-
 });
-

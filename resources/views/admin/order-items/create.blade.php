@@ -16,25 +16,17 @@
                             <div class="card-body">
                                 <form action=" {{ route('admin.order-items.store') }} " method="post">
                                     {{ csrf_field('') }}
-                                    <!-- <div class="form-group">
-                                        <label for="inputText3" class="col-form-label">Product_id</label>
-                                        <input name="product_id"  id="inputText3" type="text" placeholder="ID product" class="form-control">
-                                    </div> -->
                                     <div class="form-group">
                                         <label for="inputText4" class="col-form-label">Product_id</label>
-                                        <select name="category_id" class="form-control dropdown-toggle">
+                                        <select name="product_id" class="form-control dropdown-toggle">
                                             @foreach($products as $product)
                                             <option value="{{ $product->id }}">{{ $product->id }}: {{ $product->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    <!-- <div class="form-group">
-                                        <label for="inputEmail">Order_id</label>
-                                        <input name="order_id"  id="inputEmail" type="text" placeholder="ID order" class="form-control">
-                                    </div> -->
                                     <div class="form-group">
                                         <label for="inputText4" class="col-form-label">Order_id</label>
-                                        <select name="category_id" class="form-control dropdown-toggle">
+                                        <select name="order_id" class="form-control dropdown-toggle">
                                             @foreach($orders as $order)
                                             <option value="{{ $order->id }}">{{ $order->id }}: {{ $order->name }}</option>
                                             @endforeach

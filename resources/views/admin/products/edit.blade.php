@@ -14,12 +14,12 @@
                         <div class="card">
                             <h5 class="card-header">Products Form</h5>
                             <div class="card-body">
-                                <form action=" {{ route('admin.products.update', $product->id) }} " method="post">
+                                <form action=" {{ route('admin.products.update', $product->id) }} " method="post" enctype="multipart/form-data">
                                     {{ csrf_field('') }}
                                     {{ method_field('PUT') }}
                                     <div class="form-group">
-                                        <label for="inputText3" class="col-form-label"><img src="{{ $product->img }}" alt="" style="width: 150px; height: 150px;"></label>
-                                        <input name="img" value="" id="inputText3" type="file" placeholder="Img" class="form-control">
+                                        <label for="inputText3" class="col-form-label"><img src="{{ asset('storage/'.$product->img) }}" alt="" style="width: 150px; height: 150px;"></label>
+                                        <input name="image" value="" id="inputText3" type="file" placeholder="Img" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputEmail">Name</label>
@@ -44,6 +44,10 @@
                                             <option value="{{ $cat->id }}">{{ $cat->id }}: {{ $cat->name }}</option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputText4" class="col-form-label">View</label>
+                                        <input name="view" id="inputText4" type="number" value="{{ $product->view }}" class="form-control" placeholder="View">
                                     </div>
                                     <div class="form-group d-flex justify-content-end">
                                         <button type="button" class="btn btn-gray mr-4"><a href="{{ route('admin.products.index') }}">Cancel!</a></button>

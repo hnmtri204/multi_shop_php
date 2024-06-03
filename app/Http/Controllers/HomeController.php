@@ -17,16 +17,22 @@ class HomeController extends Controller
         return view('home.index', compact('productHot', 'productNew', 'categories'));
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // detail
     public function show(string $id)
     {
         $products = ModelsProduct::all();
         $productShow = ModelsProduct::findOrFail($id);
+
+        // increment view when viewing details
+        if($productShow){
+            $productShow->increment('view');
+            $productShow->save();
+        }
+        
         return view('home.show', compact('productShow', 'products'));
     }
 
+    //contact
     public function contact()
     {
         return view('home.contact');

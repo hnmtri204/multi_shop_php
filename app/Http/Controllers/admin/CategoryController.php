@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -26,15 +27,26 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $request['img'] = '/img/' . $request['img'];
-        $category = Category::create($request->only([
-            'name', 'description', 'img'
-        ]));
-        $message = "Create success!";
-        if (empty($category))
-            $message = "Create fail!";
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string'
+        ]);
 
-        return redirect()->route("admin.categories.index")->with('message', $message);
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('categories', 'public');
+        }
+
+        $category = Category::create([
+            'img' => $imagePath,
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+
+        ]);
+
+        $message = $category ? "Successfully created" : "Created failed";
+
+        return redirect()->route("admin.categories.index" )->with('message', $message);
     }
 
     public function edit(string $id)
@@ -45,18 +57,47 @@ class CategoryController extends Controller
     }
 
 
+    // public function update(Request $request, string $id)
+    // {
+    //     //
+    //     $category = Category::findOrFail($id);
+    //     $category->update($request->only([
+    //         'name', 'description'
+    //     ]));
+    //     $message = "Updated successfully!";
+    //     if ($category === null) {
+    //         $message = "Update failed!";
+    //     }
+    //     return redirect()->route("admin.categories.index")->with('message', $message);
+    // }
     public function update(Request $request, string $id)
     {
-        //
         $category = Category::findOrFail($id);
-        $category->update($request->only([
-            'name', 'description'
-        ]));
-        $message = "Updated successfully!";
-        if ($category === null) {
-            $message = "Update failed!";
+
+        // Validate the request
+        $request->validate([
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('categories', 'public');
+            // Delete previous image if exists
+            if ($category->img) {
+                Storage::disk('public')->delete($category->img);
+            }
+            $category->img = $imagePath;
         }
-        return redirect()->route("admin.categories.index")->with('message', $message);
+
+        // Update category details
+        $category->name = $request->input('name');
+        $category->description = $request->input('description');
+
+        // Save the changes
+        $category->save();
+        return redirect()->route('admin.categories.index')->with('message', 'Product updated successfully.');
     }
 
     public function destroy(string $id)

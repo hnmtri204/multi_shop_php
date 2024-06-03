@@ -14,11 +14,11 @@
                         <div class="card">
                             <h5 class="card-header">Categories Form</h5>
                             <div class="card-body">
-                                <form action=" {{ route('admin.categories.store') }} " method="post">
+                                <form action=" {{ route('admin.categories.store') }} " method="post"  enctype="multipart/form-data">
                                     {{ csrf_field('') }}
                                     <div class="form-group">
                                         <label for="inputText3" class="col-form-label">Img</label>
-                                        <input name="img" id="inputText3" type="file" placeholder="Img" class="form-control">
+                                        <input name="image" id="inputText3" type="file" placeholder="Img" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputText3" class="col-form-label">Name</label>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -79,13 +80,23 @@ class OrderController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
+{
+    $order = Order::find($id);
 
-        $order = Order::destroy($id);
-        $message = "Delete successfully!";
-        if ($order === null) {
-            $message = "Update failed!";
+    if ($order === null) {
+        $message = "Order not found!";
+    } else {
+        $hasChildRows = $order->orderItems()->exists();
+
+        if ($hasChildRows) {
+            $order->orderItems()->delete();
         }
-        return redirect()->route("admin.orders.index")->with('message', $message);
+
+        $order->delete();
+        $message = "Delete successfully!";
     }
+
+    return redirect()->route("admin.orders.index")->with('message', $message);
+}
+
 }

@@ -47,7 +47,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="inputText3" class="col-form-label">Note</label>
-                                        <textarea name="note" value="{{ $order->note }}" id="inputText3" type="text" placeholder="Note" class="form-control"></textarea>
+                                        <textarea name="note"  id="inputText3" type="text" placeholder="Note" class="form-control">{{ $order->note }}</textarea>
                                     </div>
                                     <div class="form-group d-flex justify-content-end">
                                         <button type="button" class="btn btn-gray mr-4"><a href="{{ route('admin.orders.index') }}">Cancel!</a></button>

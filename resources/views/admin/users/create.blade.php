@@ -33,7 +33,7 @@
 
                                     <div class="form-group">
                                         <label for="inputText4" class="col-form-label">Role</label>
-                                        <select name="category_id" class="form-control dropdown-toggle" aria-label="Default select example">
+                                        <select name="role" class="form-control dropdown-toggle" aria-label="Default select example">
                                         <optionselected>User</option>
                                                 <option value="user">User</option>
                                                 <option value="staff">Staff</option>

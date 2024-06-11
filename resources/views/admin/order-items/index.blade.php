@@ -21,6 +21,7 @@
                             <th scope="col">Product</th>
                             <th scope="col">Quantity</th>
                             <th scope="col">Price</th>
+                            <th scope="col">note</th>
                             <th scope="col">Edit</th>
                             <th scope="col">Delete</th>
                         </tr>
@@ -33,6 +34,7 @@
                             <td>{{ $orderItem->product->name }}</td>
                             <td>{{ $orderItem->quantity }}</td>
                             <td>{{ $orderItem->price }}</td>
+                            <td>{{ $orderItem->order->note }}</td>
                             <td><a href="{{ route('admin.order-items.edit', $orderItem->id) }}"><i class="fa-solid fa-pen"></i></td>
                             <td>
                                 <form action=" {{ route('admin.order-items.destroy', $orderItem->id ) }} " method="post">
